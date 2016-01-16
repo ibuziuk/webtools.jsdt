@@ -14,16 +14,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class GruntVisitor extends ASTVisitor {
+public class GulpVisitor extends ASTVisitor {
 	private List<String> tasks;
-	private static final String GRUNT = "grunt"; //$NON-NLS-1$
-	private static final String REGISTER_TASK = "registerTask"; //$NON-NLS-1$
-	private static final String INIT_CONFIG = "initConfig"; //$NON-NLS-1$
 	
 	private static final String GULP = "gulp"; //$NON-NLS-1$
 	private static final String TASK= "task"; //$NON-NLS-1$
 	
-	public GruntVisitor() {
+	public GulpVisitor() {
 		super();
 		this.tasks = new ArrayList<String>();
 	}
@@ -33,33 +30,13 @@ public class GruntVisitor extends ASTVisitor {
 		SimpleName functionName = node.getName();
 		Expression expression = node.getExpression();
 		List<Expression> arguments = node.arguments();
-		
-		if (functionName != null && expression != null && arguments != null) {
-		// Test for grunt
-		if (REGISTER_TASK.equals(functionName.toString()) && GRUNT.equals(expression.toString())) { 
+
+		if (TASK.equals(functionName.toString()) && GULP.equals(expression.toString())) {
 			if (arguments.size() > 0) {
-				tasks.add(arguments.get(0).toString().replaceAll("'", ""));  //$NON-NLS-1$//$NON-NLS-2$
-			}
-		} else if (INIT_CONFIG.equals(functionName.toString())) {
-			for (Expression a : arguments) {
-				JsonParser parser = new JsonParser();
-				JsonElement element = parser.parse(a.toString());
-				System.out.println(a.properties());
-				JsonObject asJsonObject = element.getAsJsonObject();
-				Set<Entry<String, JsonElement>> entrySet = asJsonObject.entrySet();
-				for (Entry<String, JsonElement> entry: entrySet) {
-					tasks.add(entry.getKey());
-				}
-			}
-		
-		// Test for gulp
-		} else if (TASK.equals(functionName.toString()) && GULP.equals(expression.toString())) {
-			if (arguments.size() > 0) {
-				tasks.add(arguments.get(0).toString().replaceAll("'", ""));  //$NON-NLS-1$//$NON-NLS-2$
+				tasks.add(arguments.get(0).toString().replaceAll("'", "")); //$NON-NLS-1$//$NON-NLS-2$
 			}
 		}
-		}
-		
+
 		return true;
 	}
 	

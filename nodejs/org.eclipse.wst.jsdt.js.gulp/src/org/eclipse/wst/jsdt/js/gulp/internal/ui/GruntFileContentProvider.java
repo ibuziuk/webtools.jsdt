@@ -16,7 +16,7 @@ import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 import org.eclipse.wst.jsdt.js.gulp.internal.GruntTask;
 import org.eclipse.wst.jsdt.js.gulp.internal.Task;
 import org.eclipse.wst.jsdt.js.gulp.internal.util.ASTUtil;
-import org.eclipse.wst.jsdt.js.gulp.internal.util.GruntVisitor;
+import org.eclipse.wst.jsdt.js.gulp.internal.util.GulpVisitor;
 
 public class GruntFileContentProvider implements ITreeContentProvider, IResourceChangeListener {
 	
@@ -74,7 +74,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 			if (parentNode instanceof IFile) {
 				try {
 					JavaScriptUnit unit = ASTUtil.getJavaScriptUnit((IFile)parentNode);
-					GruntVisitor visitor = new GruntVisitor();
+					GulpVisitor visitor = new GulpVisitor();
 					unit.accept(visitor);
 					children = visitor.getTasks().toArray();
 					for (Object o : children) {

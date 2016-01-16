@@ -11,7 +11,7 @@ import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
 import org.eclipse.wst.jsdt.js.grunt.internal.Messages;
 
-public class GenericGruntLaunch extends GenericBuildSytemLaunch{
+public class GruntLaunch extends GenericBuildSytemLaunch{
 
 	@Override
 	protected void launchGrunt(IFile resource, CLICommand command) {

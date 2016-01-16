@@ -26,7 +26,7 @@
 	               <test
 	                     forcePluginActivation="true"
 	                     property="org.eclipse.core.resources.name"
-	                     value="*gruntfile.js"/>
+	                     value="gruntfile.js"/>
 	            </and>
          </triggerPoints>
       </navigatorContent>
@@ -35,7 +35,7 @@
    <extension point="org.eclipse.core.runtime.adapters">
 		<factory 
             class="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntFileAdapterFactory" 
-            adaptableType="org.eclipse.wst.jsdt.js.grunt.internal.GruntTask">
+            adaptableType="org.eclipse.wst.jsdt.js.common.build.system.Task">
             <adapter
                type="org.eclipse.debug.ui.actions.ILaunchable">
          	</adapter>
@@ -46,7 +46,7 @@
          point="org.eclipse.debug.ui.launchShortcuts">
      	 <shortcut
             category="org.eclipse.ui.externaltools"
-            class="org.eclipse.wst.jsdt.js.grunt.internal.launch.GenericGruntLaunch"
+            class="org.eclipse.wst.jsdt.js.grunt.internal.launch.GruntLaunch"
             description="Grunt Task"
             helpContextId="org.eclipse.ui.externaltools.launchShortcutHelpContext.gruntShortcut"
             icon="icons/grunt_16.png"
@@ -58,6 +58,9 @@
              <with variable="selection">
                <count value="1"/>
              </with>
+                <iterate>
+                  <instanceof value="org.eclipse.wst.jsdt.js.common.build.system.Task" />
+               </iterate>
            </enablement>
            <contextLabel
          	  mode="run"
