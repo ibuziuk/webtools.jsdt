@@ -26,7 +26,7 @@
 	               <test
 	                     forcePluginActivation="true"
 	                     property="org.eclipse.core.resources.name"
-	                     value="gruntfile.js"/>
+	                     value="Gruntfile.js"/>
 	            </and>
          </triggerPoints>
       </navigatorContent>
@@ -45,7 +45,6 @@
 	<extension
          point="org.eclipse.debug.ui.launchShortcuts">
      	 <shortcut
-            category="org.eclipse.ui.externaltools"
             class="org.eclipse.wst.jsdt.js.grunt.internal.launch.GruntLaunch"
             description="Grunt Task"
             helpContextId="org.eclipse.ui.externaltools.launchShortcutHelpContext.gruntShortcut"
@@ -68,6 +67,25 @@
   		 </contextualLaunch>
     	</shortcut>
     </extension>
+    
+   <extension
+       point="org.eclipse.debug.core.launchConfigurationTypes">
+    <launchConfigurationType
+          id="org.eclipse.wst.jsdt.js.gruntLaunchConfigurationType"
+          delegate="org.eclipse.wst.jsdt.js.launch.GruntLaunchConfigurationDelegate"
+          modes="run"
+          name="Grunt">
+    </launchConfigurationType>
+  </extension>
+  
+  <extension
+       point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    <launchConfigurationTypeImage
+          configTypeID="org.eclipse.wst.jsdt.js.gruntLaunchConfigurationType"
+          icon="icons/grunt_16.png"
+          id="org.eclipse.wst.jsdt.js.gruntLaunchConfigurationTypeImage">
+    </launchConfigurationTypeImage>
+  </extension>
     
 </plugin>
 

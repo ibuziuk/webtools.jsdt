@@ -69,7 +69,7 @@ public class GruntLabelProvider extends LabelProvider implements IStyledLabelPro
 		if (object instanceof Task) {
 			return new StyledString(((Task) object).getName());
 		}
-		return new StyledString(object.toString());
+		return null;
 	}
 
 }

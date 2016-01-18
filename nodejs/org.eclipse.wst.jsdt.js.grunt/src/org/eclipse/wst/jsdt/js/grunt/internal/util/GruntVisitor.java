@@ -34,8 +34,9 @@ public class GruntVisitor extends ASTVisitor {
 		if (functionName != null && expression != null && arguments != null) {
 		// Test for grunt
 		if (REGISTER_TASK.equals(functionName.toString()) && GRUNT.equals(expression.toString())) { 
-			if (arguments.size() > 0) {
-				tasks.add(arguments.get(0).toString().replaceAll("'", ""));  //$NON-NLS-1$//$NON-NLS-2$
+			if (arguments.size() == 2 ) {
+				// TODO: fix the quotes issue in a better way
+				tasks.add(arguments.get(0).toString().replaceAll("'", "").replaceAll("\"", ""));  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 		} else if (INIT_CONFIG.equals(functionName.toString())) {
 			for (Expression a : arguments) {
@@ -54,7 +55,6 @@ public class GruntVisitor extends ASTVisitor {
 		return true;
 	}
 	
-
 	public List<String> getTasks() {
 		return this.tasks;
 	}

@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 import org.eclipse.wst.jsdt.js.common.build.system.BuildTask;
@@ -76,7 +77,6 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 					unit.accept(visitor);
 					children = visitor.getTasks().toArray();
 					for (Object o : children) {
-						
 						tasks.add(new BuildTask(o.toString(), (IFile) parentNode, false));
 					}
 				} catch (JavaScriptModelException e) {
@@ -157,6 +157,11 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 
 	@Override
 	public void resourceChanged(IResourceChangeEvent arg0) {
-		viewer.refresh();
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				viewer.refresh();
+			}	
+		});
 	}
 }
