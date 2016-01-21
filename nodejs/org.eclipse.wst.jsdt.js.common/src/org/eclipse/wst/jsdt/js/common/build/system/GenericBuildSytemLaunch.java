@@ -9,7 +9,7 @@ import org.eclipse.wst.jsdt.js.cli.core.CLICommand;
 
 public abstract class GenericBuildSytemLaunch implements ILaunchShortcut {
 	
-	protected abstract void launchGrunt(IFile resource, CLICommand command);
+	protected abstract void launch(IFile resource, CLICommand command);
 	protected abstract CLICommand generateCLICommand(String commandName);
 
 	@Override
@@ -19,13 +19,11 @@ public abstract class GenericBuildSytemLaunch implements ILaunchShortcut {
 			 element.toString();
 			 if (element != null && element instanceof Task) {
 				 Task selectedResource = (Task) element;
-				 launchGrunt(selectedResource.getBuildFile(), generateCLICommand(selectedResource.getName()));
+				 launch(selectedResource.getBuildFile(), generateCLICommand(selectedResource.getName()));
 			 }
 		}
 	}
 	
-
-
 	@Override
 	public void launch(IEditorPart arg0, String arg1) {
 		

@@ -1,8 +1,10 @@
 package org.eclipse.wst.jsdt.js.grunt.internal.launch;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
@@ -23,7 +25,7 @@ import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
 import org.eclipse.wst.jsdt.js.grunt.internal.Messages;
 import org.eclipse.wst.jsdt.js.launch.GruntLaunchConfigurationDelegate;
 
-public class GruntLaunch extends GenericBuildSytemLaunch{
+public class GruntLaunch extends GenericBuildSytemLaunch {
 	@Override
 	public void launch(IEditorPart arg0, String arg1) {
 		// TODO Auto-generated method stub
@@ -36,14 +38,14 @@ public class GruntLaunch extends GenericBuildSytemLaunch{
 			 Object element = ((IStructuredSelection)selection).getFirstElement();
 			 element.toString();
 			 if (element != null && element instanceof Task) {
-				 Task selectedResource = (Task) element;
-				 launch(selectedResource.getBuildFile().getProject(),mode);
+				 Task task = (Task) element;
+				 launch(task,  mode);
 			 }
 		}
 	}
 	
 	
-	protected void launch(IProject project, String mode) {
+	protected void launch(Task task, String mode) {
 		try {
 			ILaunchConfigurationType gruntLaunchConfiguraionType = DebugPlugin.getDefault().getLaunchManager()
 					.getLaunchConfigurationType(GruntLaunchConfigurationDelegate.LAUNCH_CONFIGURATION_ID); 
@@ -56,7 +58,10 @@ public class GruntLaunch extends GenericBuildSytemLaunch{
 //			if (existingConfiguraion != null) {
 //				DebugUITools.launch(existingConfiguraion, mode);
 //			} else {
-				ILaunchConfigurationWorkingCopy newConfiguration = createEmptyLaunchConfiguration(project.getName());
+				ILaunchConfigurationWorkingCopy newConfiguration = createEmptyLaunchConfiguration(task.getName() + "[" + task + "]"); //$NON-NLS-1$ //$NON-NLS-2$
+				newConfiguration.setAttribute(GruntLaunchConstants.PROJECT, task.getBuildFile().getProject().getName());
+				newConfiguration.setAttribute(GruntLaunchConstants.FILE, getRelativePath(task.getBuildFile().getProject(), task.getBuildFile()).toString());
+				newConfiguration.setAttribute(GruntLaunchConstants.COMMAND, task.getName());
 				newConfiguration.doSave();
 				DebugUITools.launch(newConfiguration, mode);				
 //			}
@@ -77,7 +82,7 @@ public class GruntLaunch extends GenericBuildSytemLaunch{
 	
 
 	@Override
-	protected void launchGrunt(IFile resource, CLICommand command) {
+	protected void launch(IFile resource, CLICommand command) {
 		try {
 			 new CLI(resource.getProject(), resource.getParent().getLocation()).execute(command, null);
 		} catch (CoreException e) {
@@ -90,6 +95,24 @@ public class GruntLaunch extends GenericBuildSytemLaunch{
 	@Override
 	protected CLICommand generateCLICommand(String commandName) {
 		return new CLICommand(GruntConstants.GRUNT, commandName, null, null);
+	}
+	
+	public static IPath getRelativePath(IContainer container, IResource resource) {
+		if (resource == null) {
+			return null;
+		}
+		if (container == null) {
+			return resource.getFullPath();
+		}
+	
+		IPath containerPath = container.getFullPath();
+		IPath resourcePath = resource.getFullPath();
+	
+		if (containerPath.isPrefixOf(resourcePath)) {
+			int containerPathSegmentCount = containerPath.segmentCount();
+			return resourcePath.removeFirstSegments(containerPathSegmentCount);			
+		}
+		return null;
 	}
 
 }

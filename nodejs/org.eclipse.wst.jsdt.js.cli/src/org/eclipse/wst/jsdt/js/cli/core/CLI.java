@@ -106,16 +106,16 @@ public class CLI {
 			DebugPlugin.getDefault().addDebugEventListener(processTerminateListener);
 			final IStreamsProxy streamProxy = process.getStreamsProxy();
 			streamProxy.write(command.toString());
-//			while (!process.isTerminated()) {
-//				//exit the shell after sending the command
-//				streamProxy.write("exit\n"); //$NON-NLS-1$
-//				if (monitor.isCanceled()) {
-//					process.terminate();
-//					break;
-//				}
-//				Thread.sleep(100);
-//			}
-		} catch (IOException /*| InterruptedException*/ e) {
+			while (!process.isTerminated()) {
+				//exit the shell after sending the command
+				streamProxy.write("exit\n"); //$NON-NLS-1$
+				if (monitor.isCanceled()) {
+					process.terminate();
+					break;
+				}
+				Thread.sleep(100);
+			}
+		} catch (IOException | InterruptedException e) {
 			throw new CoreException(new Status(IStatus.ERROR, CLIPlugin.PLUGIN_ID, Messages.Error_FatalInvokingCLI, e));
 		} finally {
 			lock.unlock();
