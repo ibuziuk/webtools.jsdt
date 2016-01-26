@@ -45,11 +45,11 @@
 	<extension
          point="org.eclipse.debug.ui.launchShortcuts">
      	 <shortcut
-            class="org.eclipse.wst.jsdt.js.grunt.internal.launch.GruntLaunch"
+            class="org.eclipse.wst.jsdt.js.grunt.internal.launch.shortcut.GruntLaunch"
             description="Grunt Task"
             helpContextId="org.eclipse.ui.externaltools.launchShortcutHelpContext.gruntShortcut"
             icon="icons/grunt_16.png"
-            id="org.eclipse.wst.jsdt.js.grunt.internal.launch.GruntLaunchShortcut"
+            id="org.eclipse.wst.jsdt.js.grunt.internal.launch.shortcut.gruntLaunch"
             label="Grunt Task"
             modes="run">
         <contextualLaunch>
@@ -71,8 +71,8 @@
    <extension
        point="org.eclipse.debug.core.launchConfigurationTypes">
     <launchConfigurationType
-          id="org.eclipse.wst.jsdt.js.gruntLaunchConfigurationType"
-          delegate="org.eclipse.wst.jsdt.js.launch.GruntLaunchConfigurationDelegate"
+          id="org.eclipse.wst.jsdt.js.grunt.gruntLaunchConfigurationType"
+          delegate="org.eclipse.wst.jsdt.js.grunt.internal.launch.GruntLaunchConfigurationDelegate"
           modes="run"
           name="Grunt">
     </launchConfigurationType>
@@ -81,7 +81,7 @@
   <extension
        point="org.eclipse.debug.ui.launchConfigurationTypeImages">
     <launchConfigurationTypeImage
-          configTypeID="org.eclipse.wst.jsdt.js.gruntLaunchConfigurationType"
+          configTypeID="org.eclipse.wst.jsdt.js.grunt.gruntLaunchConfigurationType"
           icon="icons/grunt_16.png"
           id="org.eclipse.wst.jsdt.js.gruntLaunchConfigurationTypeImage">
     </launchConfigurationTypeImage>
