@@ -31,17 +31,17 @@ public class CLICommand {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(getToolName());
-		
-		if (getCommand() != null) {
+
+		if (getCommandName() != null) {
 			builder.append(" "); //$NON-NLS-1$
-		builder.append(getCommandName());
+			builder.append(getCommandName());
 		}
 
 		if (getSubCommand() != null) {
 			builder.append(" "); //$NON-NLS-1$
 			builder.append(getSubCommand());
 		}
-		
+
 		if (options != null) {
 			for (String option : getOptions()) {
 				if (option != null && !option.isEmpty()) {
@@ -50,7 +50,7 @@ public class CLICommand {
 				}
 			}
 		}
-		
+
 		builder.append("\n"); //$NON-NLS-1$
 		return builder.toString();
 	}
