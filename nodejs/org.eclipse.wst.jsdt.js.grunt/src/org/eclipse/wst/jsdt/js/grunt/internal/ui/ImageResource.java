@@ -13,27 +13,20 @@ import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
  * Utility class to handle image resources.
  */
 public class ImageResource {
-	// the image registry
 	private static ImageRegistry imageRegistry;
-
-	// map of image descriptors since these
-	// will be lost by the image registry
 	private static Map<String, ImageDescriptor> imageDescriptors;
-
-	// base urls for images
 	private static URL ICON_BASE_URL;
-
-
-	// General Object Images
-	public static final String IMG_GRUNTFILE = "grunt_16.png";
+	
+	//DESIGN-735 Need to create icon for JavaScript Build Systems
+	public static final String IMG_GRUNTFILE = "grunt_16.png"; //$NON-NLS-1$
 
 	static {
 		try {
-			String pathSuffix = "icons/";
+			String pathSuffix = "icons/"; //$NON-NLS-1$
 			ICON_BASE_URL = GruntPlugin.getDefault().getBundle()
 					.getEntry(pathSuffix);
 		} catch (Exception e) {
-			GruntPlugin.logError(e , "Images error: " + e.getMessage());
+			GruntPlugin.logError(e , "Images error: " + e.getMessage()); //$NON-NLS-1$
 		}
 	}
 
@@ -92,11 +85,7 @@ public class ImageResource {
 	protected static void initializeImageRegistry() {
 		imageRegistry = GruntPlugin.getDefault().getImageRegistry();
 		imageDescriptors = new HashMap<String, ImageDescriptor>();
-
-		// load general object images
-//		registerImage(IMG_GULPFILE, IMG_GULPFILE);
 		registerImage(IMG_GRUNTFILE, IMG_GRUNTFILE);
-
 	}
 
 	/**
@@ -113,7 +102,7 @@ public class ImageResource {
 					ICON_BASE_URL, partialURL));
 			registerImageDescriptor(key, id);
 		} catch (Exception e) {
-			GruntPlugin.logError(e , "Error registering image" + e.getMessage());
+			GruntPlugin.logError(e , "Error registering image" + e.getMessage()); //$NON-NLS-1$
 		}
 	}
 

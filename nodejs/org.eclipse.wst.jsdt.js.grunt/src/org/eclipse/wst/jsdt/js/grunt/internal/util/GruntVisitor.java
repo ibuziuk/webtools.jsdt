@@ -39,6 +39,7 @@ public class GruntVisitor extends ASTVisitor {
 				tasks.add(arguments.get(0).toString().replaceAll("'", "").replaceAll("\"", ""));  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 		} else if (INIT_CONFIG.equals(functionName.toString())) {
+			// This does not work in many cases
 			for (Expression a : arguments) {
 				JsonParser parser = new JsonParser();
 				JsonElement element = parser.parse(a.toString());

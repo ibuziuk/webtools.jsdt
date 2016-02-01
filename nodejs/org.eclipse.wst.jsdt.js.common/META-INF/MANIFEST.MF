@@ -22,6 +22,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wst.jsdt.js.common.build.system,
+ org.eclipse.wst.jsdt.js.common.build.system.ui,
  org.eclipse.wst.jsdt.js.common.build.system.util,
  org.eclipse.wst.jsdt.js.common.ui,
  org.eclipse.wst.jsdt.js.common.util

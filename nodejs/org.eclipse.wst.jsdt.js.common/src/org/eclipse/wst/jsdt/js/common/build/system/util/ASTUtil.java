@@ -8,8 +8,8 @@ import org.eclipse.wst.jsdt.core.dom.AST;
 import org.eclipse.wst.jsdt.core.dom.ASTParser;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 
-public class ASTUtil {
 	
+public class ASTUtil {
 	public static JavaScriptUnit getJavaScriptUnit(IFile file) throws JavaScriptModelException {
 		ASTParser parser = ASTParser.newParser(AST.JLS3);
 		parser.setSource(getCompilationUnit(file));
@@ -19,9 +19,13 @@ public class ASTUtil {
 		return (JavaScriptUnit) parser.createAST(null);
 	}
 	
+
+	
 	private static IJavaScriptUnit getCompilationUnit(IFile file) {
 		return (IJavaScriptUnit) JavaScriptCore.create(file);
 	}
+	
+	
 	
 //	protected IFile getFile(String path) {
 //		return getWorkspaceRoot().getFile(new Path(path));

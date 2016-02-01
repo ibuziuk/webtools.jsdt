@@ -15,6 +15,7 @@ import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 import org.eclipse.wst.jsdt.js.common.build.system.BuildTask;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
+import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntVisitor;
 
 public class GruntFileContentProvider implements ITreeContentProvider, IResourceChangeListener {
@@ -25,11 +26,6 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 
 	protected static final Object[] EMPTY_ARRAY = new Object[0];
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
-	 */
 	@Override
 	public void dispose() {
 	    if (resource != null) {
@@ -80,31 +76,12 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 						tasks.add(new BuildTask(o.toString(), (IFile) parentNode, false));
 					}
 				} catch (JavaScriptModelException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					GruntPlugin.logError(e, e.getMessage());
 				}
 			}
 			return tasks.toArray();
-//			return new String[]{"Some Grunt Task"};
 		}
-		
-		JavaScriptUnit unit = null; 
-/*		if (parentNode instanceof IResource) {
-			return new String[]{"Hello"};
-		} else */if (parentNode instanceof JavaScriptUnit) {
-			unit = (JavaScriptUnit) parentNode;
-			return unit.getMessages();
-		}
-		
-		// IJSBuildFileNode buildFileNode = null;
-		// if (parentNode instanceof IResource) {
-		// buildFileNode = JSBuildFileFactoryManager
-		// .tryToCreate((IResource) parentNode);
-		// } else if (parentNode instanceof IJSBuildFileNode) {
-		// buildFileNode = (IJSBuildFileNode) parentNode;
-		// }
-		// return JSBuildFileUtil.getTasks(buildFileNode).toArray();
-		return new String[]{};
+		return null;
 	}
 
 	/*
@@ -114,10 +91,6 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 	 */
 	@Override
 	public Object getParent(Object element) {
-		// if (element instanceof IJSBuildFileNode) {
-		// return ((IJSBuildFileNode) element).getParentNode();
-		// }
-		// return null;
 		return null;
 	}
 
@@ -128,14 +101,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 	 */
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof String) {
-			return false;
-		}
-		// if (element instanceof IJSBuildFileNode) {
-		// return ((IJSBuildFileNode) element).hasChildren();
-		// }
-		// return true;
-		return true;
+		return false;
 	}
 
 	/*

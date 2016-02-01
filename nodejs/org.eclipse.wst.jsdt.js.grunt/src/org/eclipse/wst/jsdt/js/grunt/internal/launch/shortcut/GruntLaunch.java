@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.jsdt.js.grunt.internal.launch.shortcut;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -63,9 +65,11 @@ public class GruntLaunch implements ILaunchShortcut {
 //			if (existingConfiguraion != null) {
 //				DebugUITools.launch(existingConfiguraion, mode);
 //			} else {
-				ILaunchConfigurationWorkingCopy newConfiguration = createEmptyLaunchConfiguration(task.getName() + "[" + task + "]"); //$NON-NLS-1$ //$NON-NLS-2$
-				newConfiguration.setAttribute(GruntConstants.PROJECT, task.getBuildFile().getProject().getName());
-				newConfiguration.setAttribute(GruntConstants.DIR, task.getBuildFile().getParent().getLocation().toOSString());
+				IProject project = task.getBuildFile().getProject();	
+				IFile buildFile = task.getBuildFile();	
+				ILaunchConfigurationWorkingCopy newConfiguration = createEmptyLaunchConfiguration(project.getName() + " [" + buildFile.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
+				newConfiguration.setAttribute(GruntConstants.PROJECT, project.getName());
+				newConfiguration.setAttribute(GruntConstants.DIR, buildFile.getParent().getLocation().toOSString());
 				newConfiguration.setAttribute(GruntConstants.COMMAND, task.getName());
 				newConfiguration.doSave();
 				DebugUITools.launch(newConfiguration, mode);				
