@@ -1,6 +1,7 @@
 package org.eclipse.wst.jsdt.js.grunt.internal.util;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -9,6 +10,9 @@ import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
 
+/**
+ * @author "Ilya Buziuk (ibuziuk)"
+ */
 public class GruntUtil {
 	
 	public static List<String> getTasks(String path) throws JavaScriptModelException {
@@ -22,7 +26,6 @@ public class GruntUtil {
 				return visitor.getTasks();
 			}
 		}
-		return null;
+		return Collections.emptyList();
 	}
-
 }

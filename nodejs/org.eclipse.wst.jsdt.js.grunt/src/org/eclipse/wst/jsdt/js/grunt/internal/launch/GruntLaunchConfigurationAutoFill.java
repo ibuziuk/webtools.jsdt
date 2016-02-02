@@ -10,50 +10,29 @@
  ******************************************************************************/
 package org.eclipse.wst.jsdt.js.grunt.internal.launch;
 
-import java.rmi.activation.Activator;
-
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.ide.ResourceUtil;
+import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
+import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
 
-
+/**
+ * @author "Ilya Buziuk (ibuziuk)"
+ */
 public class GruntLaunchConfigurationAutoFill {
 	
-	public static void fillLaunchConfiguraion(ILaunchConfigurationWorkingCopy launchConfiguration, IProject project) {
-		if (project != null) {
-//			launchConfiguration.setAttribute(CordovaSimLaunchConstants.PROJECT, project.getName());
-		}
-	}
-	
-	public static ILaunchConfiguration chooseLaunchConfiguration(ILaunchConfiguration[] configurations, IProject project) {
-//		try {
-//			for (ILaunchConfiguration configuration : configurations) {
-//				String projectName = configuration.getAttribute(CordovaSimLaunchConstants.PROJECT, (String) null);
-//				String fh = configuration.getAttribute(CordovaSimLaunchConstants.FH, (String) null);
-//				if (fh == null && projectName != null && projectName.equals(project.getName())) {
-//					return configuration;
-//				}
-//			}
-//		} catch (CoreException e) {
-//			GruntPlugin.logError(e, e.getMessage());
-//		}
-		return null;
-	}
-	
-	public static IProject getProjectToRun(ISelection selection) {
-		if (selection instanceof StructuredSelection) {
-			StructuredSelection structuredSelection = (StructuredSelection) selection;
-			Object firstElement = structuredSelection.getFirstElement();
-			IResource resource = ResourceUtil.getResource(firstElement);
-			if (resource != null) {
-				return resource.getProject();
+	public static ILaunchConfiguration chooseLaunchConfiguration(ILaunchConfiguration[] configurations, Task task) {
+		try {
+			for (ILaunchConfiguration conf : configurations) {
+				String buildFileAttribute = conf.getAttribute(GruntConstants.BUILD_FILE, (String) null);
+				String buildFilePath = task.getBuildFile().getLocation().toOSString();
+				// Launch Configuration per build file (i.e. Gruntfile.js / gulpfile.js)
+				if (buildFilePath.equals(buildFileAttribute)) {
+					return conf;
+				}
 			}
+		} catch (CoreException e) {
+			GruntPlugin.logError(e, e.getMessage());
 		}
 		return null;
 	}

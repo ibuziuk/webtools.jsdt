@@ -173,12 +173,13 @@ public final class WorkbenchResourceUtil {
 	}
 	
 	public static File getFile(String path) {
-		File file = new File(path);
-		if (!file.isFile() || !file.exists()) {
-			return null;
+		if (path != null) {
+			File file = new File(path);
+			if (file.isFile() && file.exists()) {
+				return file;
+			}
 		}
-
-		return file;
+		return null;
 	}
 	
 	@SuppressWarnings("deprecation")

@@ -14,7 +14,7 @@ public class GruntLabelProvider extends LabelProvider implements IStyledLabelPro
 	
 	@Override
 	public Image getImage(Object element) {
-		//DESIGN-735 Need to create icon for JavaScript Build Systems
+		//TODO: DESIGN-735 Need to create icon for JavaScript Build Systems
 		if (element instanceof Task) {
 			return ImageResource.getImage(ImageResource.IMG_GRUNTFILE);
 		}

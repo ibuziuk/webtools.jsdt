@@ -4,12 +4,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class GruntFileAdapterFactory implements IAdapterFactory {
 
 	private static Class[] PROPERTIES = new Class[] { IResource.class };
 
 	@Override
-	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Object element, Class key) {
 		JavaScriptUnit node = getJSBuildFileNode(element);
 		if (node == null) {

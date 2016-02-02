@@ -1,5 +1,7 @@
 package org.eclipse.wst.jsdt.js.grunt.internal.ui;
 
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
@@ -13,6 +15,17 @@ public class GruntLaunchTabGroup extends AbstractLaunchConfigurationTabGroup {
 		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] { new GruntTab(), new RefreshTab(),
 				new CommonTab() };
 		setTabs(tabs);
+	}
+	
+	@Override
+	public void initializeFrom(ILaunchConfiguration configuration) {
+		super.initializeFrom(configuration);
+	}
+	
+	
+	@Override
+	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		super.setDefaults(configuration);
 	}
 
 }

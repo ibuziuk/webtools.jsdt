@@ -25,6 +25,7 @@ public final class GruntConstants {
 	public static final String PROJECT = GruntPlugin.PLUGIN_ID + ".PROJECT"; //$NON-NLS-1$
 	public static final String DIR = GruntPlugin.PLUGIN_ID + ".DIR"; //$NON-NLS-1$
 	public static final String COMMAND = GruntPlugin.PLUGIN_ID + ".COMMAND"; //$NON-NLS-1$
+	public static final String BUILD_FILE = GruntPlugin.PLUGIN_ID + ".BUILD_FILE"; //$NON-NLS-1$
 
 	public static final String GRUNT = "grunt"; //$NON-NLS-1$
 	public static final String GRUNT_FILE_JS = "Gruntfile.js"; //$NON-NLS-1$

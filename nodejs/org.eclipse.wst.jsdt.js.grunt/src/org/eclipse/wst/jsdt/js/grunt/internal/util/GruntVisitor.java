@@ -14,6 +14,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * @author "Ilya Buziuk (ibuziuk)"
+ */
 public class GruntVisitor extends ASTVisitor {
 	private List<String> tasks;
 	private static final String GRUNT = "grunt"; //$NON-NLS-1$

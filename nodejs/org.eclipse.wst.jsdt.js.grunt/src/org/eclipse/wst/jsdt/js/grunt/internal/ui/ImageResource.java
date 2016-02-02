@@ -17,7 +17,7 @@ public class ImageResource {
 	private static Map<String, ImageDescriptor> imageDescriptors;
 	private static URL ICON_BASE_URL;
 	
-	//DESIGN-735 Need to create icon for JavaScript Build Systems
+	//TODO: DESIGN-735 Need to create icon for JavaScript Build Systems
 	public static final String IMG_GRUNTFILE = "grunt_16.png"; //$NON-NLS-1$
 
 	static {

@@ -26,17 +26,13 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
+import org.eclipse.wst.jsdt.js.grunt.internal.launch.GruntLaunchConfigurationAutoFill;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
 public class GruntLaunch implements ILaunchShortcut {
-	
-	@Override
-	public void launch(IEditorPart arg0, String arg1) {
-	
-	}
-	
+		
 	@Override
 	public void launch(ISelection selection, String mode) {
 		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
@@ -49,9 +45,17 @@ public class GruntLaunch implements ILaunchShortcut {
 		}
 	}
 	
+	@Override
+	public void launch(IEditorPart arg0, String arg1) {	
+	}
+	
 
 	protected void launch(Task task, String mode) {
 		try {
+			IFile buildFile = task.getBuildFile();
+			// TODO: null checks
+			IProject project = buildFile.getProject();	
+			
 			ILaunchConfigurationType gruntLaunchConfiguraionType = DebugPlugin.getDefault().getLaunchManager()
 					.getLaunchConfigurationType(GruntConstants.LAUNCH_CONFIGURATION_ID); 
 			
@@ -59,36 +63,35 @@ public class GruntLaunch implements ILaunchShortcut {
 			ILaunchConfiguration[] configurations = DebugPlugin.getDefault()
 					.getLaunchManager().getLaunchConfigurations(gruntLaunchConfiguraionType);
 			
-//			ILaunchConfiguration existingConfiguraion = CordovaSimLaunchConfigurationAutofillUtil
-//					.chooseLaunchConfiguration(configurations, project);
-//			
-//			if (existingConfiguraion != null) {
-//				DebugUITools.launch(existingConfiguraion, mode);
-//			} else {
-				IProject project = task.getBuildFile().getProject();	
-				IFile buildFile = task.getBuildFile();	
+			ILaunchConfiguration existingConfiguraion = GruntLaunchConfigurationAutoFill.chooseLaunchConfiguration(configurations, task);
+			
+			if (existingConfiguraion != null) {
+				ILaunchConfigurationWorkingCopy wc = existingConfiguraion.getWorkingCopy();
+				wc.setAttribute(GruntConstants.COMMAND, task.getName());
+				existingConfiguraion = wc.doSave();
+				DebugUITools.launch(existingConfiguraion, mode);
+			// Creating Launch Configuration from scratch
+			} else {
 				ILaunchConfigurationWorkingCopy newConfiguration = createEmptyLaunchConfiguration(project.getName() + " [" + buildFile.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
+				newConfiguration.setAttribute(GruntConstants.BUILD_FILE, buildFile.getLocation().toOSString());
 				newConfiguration.setAttribute(GruntConstants.PROJECT, project.getName());
 				newConfiguration.setAttribute(GruntConstants.DIR, buildFile.getParent().getLocation().toOSString());
 				newConfiguration.setAttribute(GruntConstants.COMMAND, task.getName());
 				newConfiguration.doSave();
 				DebugUITools.launch(newConfiguration, mode);				
-//			}
+			}
 		} catch (CoreException e) {
 			GruntPlugin.logError(e, e.getMessage());
 		}
 	}
 
-	protected ILaunchConfigurationWorkingCopy createEmptyLaunchConfiguration(
-			String namePrefix) throws CoreException {
+	private ILaunchConfigurationWorkingCopy createEmptyLaunchConfiguration(String namePrefix) throws CoreException {
 		ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
-		ILaunchConfigurationType launchConfigurationType = launchManager.getLaunchConfigurationType(GruntConstants.LAUNCH_CONFIGURATION_ID);
-		ILaunchConfigurationWorkingCopy launchConfiguration = launchConfigurationType.newInstance(
-				null, launchManager.generateLaunchConfigurationName(namePrefix));
+		ILaunchConfigurationType launchConfigurationType = launchManager
+				.getLaunchConfigurationType(GruntConstants.LAUNCH_CONFIGURATION_ID);
+		ILaunchConfigurationWorkingCopy launchConfiguration = launchConfigurationType.newInstance(null,
+				launchManager.generateLaunchConfigurationName(namePrefix));
 		return launchConfiguration;
 	}
 	
-	
-
-
 }

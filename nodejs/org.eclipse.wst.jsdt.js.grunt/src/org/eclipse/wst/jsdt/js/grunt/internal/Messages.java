@@ -20,6 +20,7 @@ public class Messages extends NLS {
 
 	public static String GruntLaunchError_Title;
 	public static String GruntLaunchError_Message;
+	public static String GruntLaunchTab_Main;
 	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
