@@ -87,7 +87,6 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 					}
 				} catch (JavaScriptModelException e) {
 					GruntPlugin.logError(e, e.getMessage());
-					return null;
 				}
 			}
 			return tasks.toArray();

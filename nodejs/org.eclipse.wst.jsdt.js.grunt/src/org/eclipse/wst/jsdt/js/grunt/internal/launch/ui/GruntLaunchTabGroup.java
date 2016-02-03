@@ -18,6 +18,9 @@ import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.RefreshTab;
 
+/**
+ * @author "Ilya Buziuk (ibuziuk)"
+ */
 public class GruntLaunchTabGroup extends AbstractLaunchConfigurationTabGroup {
 
 	@Override

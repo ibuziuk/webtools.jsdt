@@ -3,6 +3,7 @@ package org.eclipse.wst.jsdt.js.grunt.internal.util;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
@@ -15,7 +16,7 @@ import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
  */
 public class GruntUtil {
 	
-	public static List<String> getTasks(String pathToFile) throws JavaScriptModelException {
+	public static Set<String> getTasks(String pathToFile) throws JavaScriptModelException {
 		File file = WorkbenchResourceUtil.getFile(pathToFile);
 		if (file != null) {
 			IFile ifile = WorkbenchResourceUtil.getFileForLocation(file.getAbsolutePath());
@@ -26,6 +27,6 @@ public class GruntUtil {
 				return visitor.getTasks();
 			}
 		}
-		return Collections.emptyList();
+		return Collections.emptySet();
 	}
 }

@@ -11,7 +11,7 @@
 package org.eclipse.wst.jsdt.js.grunt.internal.launch.ui;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -184,14 +184,14 @@ public class GruntTab extends AbstractLaunchConfigurationTab {
 		try {
 			buildFileLocation = lc.getAttribute(GruntConstants.BUILD_FILE, (String) null);
 			buildFileText.setText(buildFileLocation != null ? buildFileLocation : ""); //$NON-NLS-1$
-			List<String> tasks = GruntUtil.getTasks(buildFileLocation);
+			Set<String> tasks = GruntUtil.getTasks(buildFileLocation);
 			if (!tasks.isEmpty()) {
 				updateTasks(tasks.toArray(new String[tasks.size()]));
 				String task = lc.getAttribute(GruntConstants.COMMAND, (String) null);
 				if (task != null && tasks.contains(task)) {
 					tasksCommbo.setText(task);
 				} else {
-					tasksCommbo.setText(tasks.get(0));
+					tasksCommbo.setText(tasks.iterator().next());
 				}
 			}	
 		} catch (CoreException e) {
@@ -212,7 +212,7 @@ public class GruntTab extends AbstractLaunchConfigurationTab {
 	}
 	
 	private String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
-		List<String> tasks = GruntUtil.getTasks(file.getLocation().toOSString());
+		Set<String> tasks = GruntUtil.getTasks(file.getLocation().toOSString());
 		return tasks.toArray(new String[tasks.size()]);
 	}
 
