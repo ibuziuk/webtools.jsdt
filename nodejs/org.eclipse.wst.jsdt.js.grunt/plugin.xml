@@ -90,7 +90,7 @@
   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
     <launchConfigurationTabGroup
         type="org.eclipse.wst.jsdt.js.grunt.gruntLaunchConfigurationType"
-        class="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntLaunchTabGroup"
+        class="org.eclipse.wst.jsdt.js.grunt.internal.launch.ui.GruntLaunchTabGroup"
         id="org.eclipse.wst.jsdt.js.grunt.tabgroup">
     </launchConfigurationTabGroup>
   </extension>

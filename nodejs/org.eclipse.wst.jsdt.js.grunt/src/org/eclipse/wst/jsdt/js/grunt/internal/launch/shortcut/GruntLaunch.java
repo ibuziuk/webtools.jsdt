@@ -53,9 +53,6 @@ public class GruntLaunch implements ILaunchShortcut {
 	protected void launch(Task task, String mode) {
 		try {
 			IFile buildFile = task.getBuildFile();
-			// TODO: null checks
-			IProject project = buildFile.getProject();	
-			
 			ILaunchConfigurationType gruntLaunchConfiguraionType = DebugPlugin.getDefault().getLaunchManager()
 					.getLaunchConfigurationType(GruntConstants.LAUNCH_CONFIGURATION_ID); 
 			
@@ -67,11 +64,13 @@ public class GruntLaunch implements ILaunchShortcut {
 			
 			if (existingConfiguraion != null) {
 				ILaunchConfigurationWorkingCopy wc = existingConfiguraion.getWorkingCopy();
+				// Updating task in the existing launch
 				wc.setAttribute(GruntConstants.COMMAND, task.getName());
 				existingConfiguraion = wc.doSave();
 				DebugUITools.launch(existingConfiguraion, mode);
 			// Creating Launch Configuration from scratch
-			} else {
+			} else if (buildFile != null){
+				IProject project = buildFile.getProject();	
 				ILaunchConfigurationWorkingCopy newConfiguration = createEmptyLaunchConfiguration(project.getName() + " [" + buildFile.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
 				newConfiguration.setAttribute(GruntConstants.BUILD_FILE, buildFile.getLocation().toOSString());
 				newConfiguration.setAttribute(GruntConstants.PROJECT, project.getName());

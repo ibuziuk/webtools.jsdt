@@ -15,8 +15,8 @@ import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
  */
 public class GruntUtil {
 	
-	public static List<String> getTasks(String path) throws JavaScriptModelException {
-		File file = WorkbenchResourceUtil.getFile(path);
+	public static List<String> getTasks(String pathToFile) throws JavaScriptModelException {
+		File file = WorkbenchResourceUtil.getFile(pathToFile);
 		if (file != null) {
 			IFile ifile = WorkbenchResourceUtil.getFileForLocation(file.getAbsolutePath());
 			if (ifile != null) {

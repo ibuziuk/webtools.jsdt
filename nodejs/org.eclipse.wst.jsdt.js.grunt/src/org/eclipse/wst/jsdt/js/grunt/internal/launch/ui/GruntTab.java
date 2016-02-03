@@ -1,4 +1,14 @@
-package org.eclipse.wst.jsdt.js.grunt.internal.ui;
+/*******************************************************************************
+ * Copyright (c) 2016 Red Hat, Inc. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * 	Contributors:
+ * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
+ *******************************************************************************/
+package org.eclipse.wst.jsdt.js.grunt.internal.launch.ui;
 
 import java.io.File;
 import java.util.List;
@@ -31,6 +41,7 @@ import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
 import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
 import org.eclipse.wst.jsdt.js.grunt.internal.Messages;
+import org.eclipse.wst.jsdt.js.grunt.internal.ui.ImageResource;
 import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntUtil;
 
 

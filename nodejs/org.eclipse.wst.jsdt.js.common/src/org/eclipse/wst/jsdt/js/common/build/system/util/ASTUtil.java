@@ -19,16 +19,8 @@ public class ASTUtil {
 		return (JavaScriptUnit) parser.createAST(null);
 	}
 	
-
-	
 	private static IJavaScriptUnit getCompilationUnit(IFile file) {
 		return (IJavaScriptUnit) JavaScriptCore.create(file);
 	}
 	
-	
-	
-//	protected IFile getFile(String path) {
-//		return getWorkspaceRoot().getFile(new Path(path));
-//	}
-
 }
