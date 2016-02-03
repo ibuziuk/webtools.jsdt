@@ -22,7 +22,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
-import org.eclipse.wst.jsdt.js.common.build.system.BuildTask;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
@@ -83,7 +82,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 					unit.accept(visitor);
 					children = visitor.getTasks().toArray();
 					for (Object o : children) {
-						tasks.add(new BuildTask(o.toString(), (IFile) parentNode, false));
+						tasks.add(new Task(o.toString(), (IFile) parentNode, false));
 					}
 				} catch (JavaScriptModelException e) {
 					GruntPlugin.logError(e, e.getMessage());

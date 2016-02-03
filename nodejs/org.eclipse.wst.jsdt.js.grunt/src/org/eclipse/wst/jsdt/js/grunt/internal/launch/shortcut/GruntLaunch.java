@@ -24,15 +24,15 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
+import org.eclipse.wst.jsdt.js.common.build.system.launch.LaunchConfigurationAutoFill;
 import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
-import org.eclipse.wst.jsdt.js.grunt.internal.launch.GruntLaunchConfigurationAutoFill;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
 public class GruntLaunch implements ILaunchShortcut {
-		
+	
 	@Override
 	public void launch(ISelection selection, String mode) {
 		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
@@ -60,7 +60,8 @@ public class GruntLaunch implements ILaunchShortcut {
 			ILaunchConfiguration[] configurations = DebugPlugin.getDefault()
 					.getLaunchManager().getLaunchConfigurations(gruntLaunchConfiguraionType);
 			
-			ILaunchConfiguration existingConfiguraion = GruntLaunchConfigurationAutoFill.chooseLaunchConfiguration(configurations, task);
+			ILaunchConfiguration existingConfiguraion = LaunchConfigurationAutoFill
+					.chooseLaunchConfiguration(configurations, task, GruntConstants.BUILD_FILE);
 			
 			if (existingConfiguraion != null) {
 				ILaunchConfigurationWorkingCopy wc = existingConfiguraion.getWorkingCopy();

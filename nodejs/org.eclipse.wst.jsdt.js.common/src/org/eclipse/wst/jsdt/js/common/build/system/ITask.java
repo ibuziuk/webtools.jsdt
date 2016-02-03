@@ -8,26 +8,17 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.grunt.internal;
+package org.eclipse.wst.jsdt.js.common.build.system;
 
-import org.eclipse.osgi.util.NLS;
+import org.eclipse.core.resources.IFile;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public class Messages extends NLS {
-	private static final String BUNDLE_NAME = Messages.class.getName().toString().toLowerCase();
-
-	public static String GruntLaunchError_Title;
-	public static String GruntLaunchError_Message;
-	public static String GruntLaunchTab_Main;
-	public static String GruntLaunchTab_ErrorNotExist;
+public interface ITask {
 	
-	static {
-		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
-	}
-
-	private Messages() {
-	}
+	String getName();
+	boolean isDefault();
+	IFile getBuildFile();
 	
 }

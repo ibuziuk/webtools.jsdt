@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2016 Red Hat, Inc. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * 	Contributors:
+ * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
+ *******************************************************************************/
 package org.eclipse.wst.jsdt.js.common.build.system.ui;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +30,11 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.jsdt.js.common.CommonPlugin;
 
-
-public class JSBuildSystemFileSelectionDialog extends ElementTreeSelectionDialog {
+/**
+ * @author "Ilya Buziuk (ibuziuk)"
+ */
+public class IFileSelectionDialog extends ElementTreeSelectionDialog {
     private String[] extensions;
-    private String[] names;
 
     private static ITreeContentProvider contentProvider = new ITreeContentProvider() {
         public Object[] getChildren(Object element) {
@@ -69,7 +80,7 @@ public class JSBuildSystemFileSelectionDialog extends ElementTreeSelectionDialog
         }
     };
 
-    public JSBuildSystemFileSelectionDialog(String title, String message, String[] type) {
+    public IFileSelectionDialog(String title, String message, String[] type) {
         this(Display.getDefault().getActiveShell(), WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(),
                 contentProvider);
         this.extensions = type;
@@ -81,7 +92,7 @@ public class JSBuildSystemFileSelectionDialog extends ElementTreeSelectionDialog
         setValidator(validator);
     }
 
-    public JSBuildSystemFileSelectionDialog(Shell parent, ILabelProvider labelProvider, ITreeContentProvider contentProvider) {
+    public IFileSelectionDialog(Shell parent, ILabelProvider labelProvider, ITreeContentProvider contentProvider) {
         super(parent, labelProvider, contentProvider);
     }
 
@@ -118,8 +129,7 @@ public class JSBuildSystemFileSelectionDialog extends ElementTreeSelectionDialog
      * Check file extension
      */
     private boolean checkExtension(String name) {
-    	// TODO 
-        if (name.toLowerCase().equals("gruntfile.js") || name.toLowerCase().equals("gulpfile.js") ) {
+        if (name.equals("*")) { //$NON-NLS-1$
             return true;
         }
 

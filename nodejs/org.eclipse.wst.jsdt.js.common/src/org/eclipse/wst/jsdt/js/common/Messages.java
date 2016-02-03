@@ -8,7 +8,7 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.grunt.internal;
+package org.eclipse.wst.jsdt.js.common;
 
 import org.eclipse.osgi.util.NLS;
 
@@ -18,10 +18,14 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = Messages.class.getName().toString().toLowerCase();
 
-	public static String GruntLaunchError_Title;
-	public static String GruntLaunchError_Message;
-	public static String GruntLaunchTab_Main;
-	public static String GruntLaunchTab_ErrorNotExist;
+	public static String LaunchError_Title;
+	public static String LaunchError_Message;
+	public static String LaunchTab_Main;
+	public static String LaunchTab_Tasks;
+	public static String LaunchTab_BuildFile;
+	public static String LaunchTab_Browse;
+	public static String LaunchTab_DialogTitle;
+	public static String LaunchTab_DialogMessage;
 	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

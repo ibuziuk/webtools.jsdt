@@ -25,7 +25,7 @@ public class GruntLaunchTabGroup extends AbstractLaunchConfigurationTabGroup {
 
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] { new GruntTab(), new RefreshTab(),
+		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] { new GruntLaunchTab(), new RefreshTab(),
 				new CommonTab() };
 		setTabs(tabs);
 	}
