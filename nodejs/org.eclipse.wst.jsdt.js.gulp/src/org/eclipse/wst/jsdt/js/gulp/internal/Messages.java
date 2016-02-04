@@ -18,8 +18,10 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = Messages.class.getName().toString().toLowerCase();
 
-	public static String GruntLaunchError_Title;
-	public static String GruntLaunchError_Message;
+	public static String GulpLaunchError_Title;
+	public static String GulpLaunchError_Message;
+	public static String GulpLaunchTab_Main;
+	public static String GulpLaunchTab_ErrorNotExist;
 	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
@@ -27,5 +29,4 @@ public class Messages extends NLS {
 
 	private Messages() {
 	}
-	
 }

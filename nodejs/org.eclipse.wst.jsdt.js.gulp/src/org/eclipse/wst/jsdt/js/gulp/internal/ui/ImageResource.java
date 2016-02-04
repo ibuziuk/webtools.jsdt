@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2016 Red Hat, Inc. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * 	Contributors:
+ * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
+ *******************************************************************************/
 package org.eclipse.wst.jsdt.js.gulp.internal.ui;
 
 import java.net.URL;
@@ -13,28 +23,20 @@ import org.eclipse.wst.jsdt.js.gulp.GulpPlugin;
  * Utility class to handle image resources.
  */
 public class ImageResource {
-	// the image registry
 	private static ImageRegistry imageRegistry;
-
-	// map of image descriptors since these
-	// will be lost by the image registry
 	private static Map<String, ImageDescriptor> imageDescriptors;
-
-	// base urls for images
 	private static URL ICON_BASE_URL;
-
-
-	// General Object Images
-	public static final String IMG_GULPFILE = "gulp_16.png";
-	public static final String IMG_GRUNTFILE = "grunt_16.png";
+	
+	//DESIGN-735 Need to create icon for JavaScript Build Systems
+	public static final String IMG_GULPFILE = "gulp_16.png"; //$NON-NLS-1$
 
 	static {
 		try {
-			String pathSuffix = "icons/";
+			String pathSuffix = "icons/"; //$NON-NLS-1$
 			ICON_BASE_URL = GulpPlugin.getDefault().getBundle()
 					.getEntry(pathSuffix);
 		} catch (Exception e) {
-			GulpPlugin.logError(e , "Images error: " + e.getMessage());
+			GulpPlugin.logError(e , "Images error: " + e.getMessage()); //$NON-NLS-1$
 		}
 	}
 
@@ -93,11 +95,7 @@ public class ImageResource {
 	protected static void initializeImageRegistry() {
 		imageRegistry = GulpPlugin.getDefault().getImageRegistry();
 		imageDescriptors = new HashMap<String, ImageDescriptor>();
-
-		// load general object images
 		registerImage(IMG_GULPFILE, IMG_GULPFILE);
-		registerImage(IMG_GRUNTFILE, IMG_GRUNTFILE);
-
 	}
 
 	/**
@@ -114,7 +112,7 @@ public class ImageResource {
 					ICON_BASE_URL, partialURL));
 			registerImageDescriptor(key, id);
 		} catch (Exception e) {
-			GulpPlugin.logError(e , "Error registering image" + e.getMessage());
+			GulpPlugin.logError(e , "Error registering image" + e.getMessage()); //$NON-NLS-1$
 		}
 	}
 

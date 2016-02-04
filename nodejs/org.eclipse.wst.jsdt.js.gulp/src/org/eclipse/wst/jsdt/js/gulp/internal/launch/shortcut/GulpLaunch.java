@@ -8,7 +8,7 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.grunt.internal.launch.shortcut;
+package org.eclipse.wst.jsdt.js.gulp.internal.launch.shortcut;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -25,14 +25,13 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.common.build.system.launch.LaunchConfigurationAutoFill;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
-import org.eclipse.wst.jsdt.js.grunt.internal.GulpConstants;
+import org.eclipse.wst.jsdt.js.gulp.GulpPlugin;
+import org.eclipse.wst.jsdt.js.gulp.internal.GulpConstants;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public class GruntLaunch implements ILaunchShortcut {
-	
+public class GulpLaunch implements ILaunchShortcut {
 	@Override
 	public void launch(ISelection selection, String mode) {
 		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
@@ -92,5 +91,5 @@ public class GruntLaunch implements ILaunchShortcut {
 				launchManager.generateLaunchConfigurationName(namePrefix));
 		return launchConfiguration;
 	}
-	
+
 }

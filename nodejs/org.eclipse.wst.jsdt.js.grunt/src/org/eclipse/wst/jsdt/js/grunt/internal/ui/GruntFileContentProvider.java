@@ -24,7 +24,7 @@ import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
-import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
+import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
 import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntVisitor;
 
 public class GruntFileContentProvider implements ITreeContentProvider, IResourceChangeListener {
@@ -85,7 +85,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 						tasks.add(new Task(o.toString(), (IFile) parentNode, false));
 					}
 				} catch (JavaScriptModelException e) {
-					GruntPlugin.logError(e, e.getMessage());
+					GulpPlugin.logError(e, e.getMessage());
 				}
 			}
 			return tasks.toArray();

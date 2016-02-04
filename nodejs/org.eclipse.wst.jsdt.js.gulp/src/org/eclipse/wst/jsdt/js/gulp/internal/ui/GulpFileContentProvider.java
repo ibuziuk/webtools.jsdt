@@ -1,7 +1,16 @@
+/*******************************************************************************
+ * Copyright (c) 2016 Red Hat, Inc. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * 	Contributors:
+ * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
+ *******************************************************************************/
 package org.eclipse.wst.jsdt.js.gulp.internal.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -9,28 +18,22 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
-import org.eclipse.wst.jsdt.js.gulp.internal.GruntTask;
-import org.eclipse.wst.jsdt.js.gulp.internal.Task;
-import org.eclipse.wst.jsdt.js.gulp.internal.util.ASTUtil;
+import org.eclipse.wst.jsdt.js.common.build.system.Task;
+import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
+import org.eclipse.wst.jsdt.js.gulp.GulpPlugin;
 import org.eclipse.wst.jsdt.js.gulp.internal.util.GulpVisitor;
 
-public class GruntFileContentProvider implements ITreeContentProvider, IResourceChangeListener {
+public class GulpFileContentProvider implements ITreeContentProvider, IResourceChangeListener {
 	
 	private Viewer viewer;
-
 	private IResource resource;
 
 	protected static final Object[] EMPTY_ARRAY = new Object[0];
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
-	 */
 	@Override
 	public void dispose() {
 	    if (resource != null) {
@@ -78,35 +81,15 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 					unit.accept(visitor);
 					children = visitor.getTasks().toArray();
 					for (Object o : children) {
-						
-						tasks.add(new GruntTask(o.toString(), (IFile) parentNode, false));
+						tasks.add(new Task(o.toString(), (IFile) parentNode, false));
 					}
 				} catch (JavaScriptModelException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					GulpPlugin.logError(e, e.getMessage());
 				}
 			}
 			return tasks.toArray();
-//			return new String[]{"Some Grunt Task"};
 		}
-		
-		JavaScriptUnit unit = null; 
-/*		if (parentNode instanceof IResource) {
-			return new String[]{"Hello"};
-		} else */if (parentNode instanceof JavaScriptUnit) {
-			unit = (JavaScriptUnit) parentNode;
-			return unit.getMessages();
-		}
-		
-		// IJSBuildFileNode buildFileNode = null;
-		// if (parentNode instanceof IResource) {
-		// buildFileNode = JSBuildFileFactoryManager
-		// .tryToCreate((IResource) parentNode);
-		// } else if (parentNode instanceof IJSBuildFileNode) {
-		// buildFileNode = (IJSBuildFileNode) parentNode;
-		// }
-		// return JSBuildFileUtil.getTasks(buildFileNode).toArray();
-		return new String[]{};
+		return null;
 	}
 
 	/*
@@ -116,10 +99,6 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 	 */
 	@Override
 	public Object getParent(Object element) {
-		// if (element instanceof IJSBuildFileNode) {
-		// return ((IJSBuildFileNode) element).getParentNode();
-		// }
-		// return null;
 		return null;
 	}
 
@@ -130,14 +109,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 	 */
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof String) {
-			return false;
-		}
-		// if (element instanceof IJSBuildFileNode) {
-		// return ((IJSBuildFileNode) element).hasChildren();
-		// }
-		// return true;
-		return true;
+		return false;
 	}
 
 	/*
@@ -159,6 +131,11 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 
 	@Override
 	public void resourceChanged(IResourceChangeEvent arg0) {
-		viewer.refresh();
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				viewer.refresh();
+			}	
+		});
 	}
 }

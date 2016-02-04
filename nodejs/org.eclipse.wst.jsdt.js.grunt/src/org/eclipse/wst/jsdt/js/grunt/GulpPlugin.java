@@ -19,15 +19,15 @@ import org.osgi.framework.BundleContext;
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public class GruntPlugin extends AbstractUIPlugin {
+public class GulpPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.wst.jsdt.js.grunt"; //$NON-NLS-1$
 
 	// The shared instance
-	private static GruntPlugin plugin;
+	private static GulpPlugin plugin;
 
-	public GruntPlugin() {
+	public GulpPlugin() {
 	}
 
 	public void start(BundleContext context) throws Exception {
@@ -40,7 +40,7 @@ public class GruntPlugin extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-	public static GruntPlugin getDefault() {
+	public static GulpPlugin getDefault() {
 		return plugin;
 	}
 	

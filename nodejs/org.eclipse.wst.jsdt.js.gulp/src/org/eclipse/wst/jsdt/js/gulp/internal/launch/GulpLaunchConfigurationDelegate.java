@@ -8,7 +8,7 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.grunt.internal.launch;
+package org.eclipse.wst.jsdt.js.gulp.internal.launch;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -23,14 +23,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.jsdt.js.cli.core.CLI;
 import org.eclipse.wst.jsdt.js.cli.core.CLICommand;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
-import org.eclipse.wst.jsdt.js.grunt.internal.GulpConstants;
-import org.eclipse.wst.jsdt.js.grunt.internal.Messages;
+import org.eclipse.wst.jsdt.js.gulp.GulpPlugin;
+import org.eclipse.wst.jsdt.js.gulp.internal.GulpConstants;
+import org.eclipse.wst.jsdt.js.gulp.internal.Messages;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public class GruntLaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
+public class GulpLaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
 
 	@Override
 	public void launch(ILaunchConfiguration conf, String arg1, ILaunch arg2, IProgressMonitor monitor) throws CoreException {
@@ -52,13 +52,13 @@ public class GruntLaunchConfigurationDelegate implements ILaunchConfigurationDel
 			 new CLI(project, dir).execute(command, monitor);
 		} catch (CoreException e) {
 			GulpPlugin.logError(e);
-			ErrorDialog.openError(Display.getDefault().getActiveShell(), Messages.GruntLaunchError_Title,
-					Messages.GruntLaunchError_Message, e.getStatus());
+			ErrorDialog.openError(Display.getDefault().getActiveShell(), Messages.GulpLaunchError_Title,
+					Messages.GulpLaunchError_Message, e.getStatus());
 		}
 	}
 	
 	protected CLICommand generateCLICommand(String commandName) {
-		return new CLICommand(GulpConstants.GRUNT, commandName, null, null);
+		return new CLICommand(GulpConstants.GULP, commandName, null, null);
 	}
 
 }

@@ -8,7 +8,7 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.grunt.internal.launch.ui;
+package org.eclipse.wst.jsdt.js.gulp.internal.launch.ui;
 
 import java.io.File;
 import java.util.Set;
@@ -22,16 +22,16 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.js.common.build.system.launch.ui.GenericBuildSystemTab;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
-import org.eclipse.wst.jsdt.js.grunt.internal.GulpConstants;
-import org.eclipse.wst.jsdt.js.grunt.internal.Messages;
-import org.eclipse.wst.jsdt.js.grunt.internal.ui.ImageResource;
-import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntUtil;
+import org.eclipse.wst.jsdt.js.gulp.GulpPlugin;
+import org.eclipse.wst.jsdt.js.gulp.internal.GulpConstants;
+import org.eclipse.wst.jsdt.js.gulp.internal.Messages;
+import org.eclipse.wst.jsdt.js.gulp.internal.ui.ImageResource;
+import org.eclipse.wst.jsdt.js.gulp.internal.util.GulpUtil;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public class GruntLaunchTab extends GenericBuildSystemTab {
+public class GulpLaunchTab extends GenericBuildSystemTab {
 	
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
@@ -40,7 +40,7 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 		String buildFilePath = buildFileText.getText();
 		File file = WorkbenchResourceUtil.getFile(buildFilePath);
 		if (file == null) {
-			setErrorMessage(Messages.GruntLaunchTab_ErrorNotExist);
+			setErrorMessage(Messages.GulpLaunchTab_ErrorNotExist);
 			return false;
 		}
 		
@@ -50,7 +50,7 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 	@Override
 	public Image getImage() {
 		//DESIGN-735 Need to create icon for JavaScript Build Systems
-		return ImageResource.getImage(ImageResource.IMG_GRUNTFILE);
+		return ImageResource.getImage(ImageResource.IMG_GULPFILE);
 	}
 	
 	
@@ -60,7 +60,7 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 		try {
 			buildFileLocation = lc.getAttribute(GulpConstants.BUILD_FILE, (String) null);
 			buildFileText.setText(buildFileLocation != null ? buildFileLocation : ""); //$NON-NLS-1$
-			Set<String> tasks = GruntUtil.getTasks(buildFileLocation);
+			Set<String> tasks = GulpUtil.getTasks(buildFileLocation);
 			if (!tasks.isEmpty()) {
 				updateTasks(tasks.toArray(new String[tasks.size()]));
 				String task = lc.getAttribute(GulpConstants.COMMAND, (String) null);
@@ -89,7 +89,7 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 	
 	@Override
 	protected String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
-		Set<String> tasks = GruntUtil.getTasks(file.getLocation().toOSString());
+		Set<String> tasks = GulpUtil.getTasks(file.getLocation().toOSString());
 		return tasks.toArray(new String[tasks.size()]);
 	}
 
