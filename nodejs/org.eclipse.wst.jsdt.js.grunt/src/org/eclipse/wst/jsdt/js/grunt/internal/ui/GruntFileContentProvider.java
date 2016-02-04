@@ -24,9 +24,12 @@ import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
+import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntVisitor;
 
+/**
+ * @author "Ilya Buziuk (ibuziuk)"
+ */
 public class GruntFileContentProvider implements ITreeContentProvider, IResourceChangeListener {
 	
 	private Viewer viewer;
@@ -74,19 +77,17 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 	public Object[] getChildren(Object parentNode) {
 		Object[] children = null;
 		ArrayList<Task> tasks = new ArrayList<>();
-		if (parentNode instanceof IResource) {
-			if (parentNode instanceof IFile) {
-				try {
-					JavaScriptUnit unit = ASTUtil.getJavaScriptUnit((IFile)parentNode);
-					GruntVisitor visitor = new GruntVisitor();
-					unit.accept(visitor);
-					children = visitor.getTasks().toArray();
-					for (Object o : children) {
-						tasks.add(new Task(o.toString(), (IFile) parentNode, false));
-					}
-				} catch (JavaScriptModelException e) {
-					GulpPlugin.logError(e, e.getMessage());
+		if (parentNode instanceof IFile) {
+			try {
+				JavaScriptUnit unit = ASTUtil.getJavaScriptUnit((IFile) parentNode);
+				GruntVisitor visitor = new GruntVisitor();
+				unit.accept(visitor);
+				children = visitor.getTasks().toArray();
+				for (Object o : children) {
+					tasks.add(new Task(o.toString(), (IFile) parentNode, false));
 				}
+			} catch (JavaScriptModelException e) {
+				GruntPlugin.logError(e, e.getMessage());
 			}
 			return tasks.toArray();
 		}

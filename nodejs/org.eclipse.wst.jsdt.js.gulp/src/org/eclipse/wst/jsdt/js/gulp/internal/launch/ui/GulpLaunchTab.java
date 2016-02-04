@@ -21,12 +21,13 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.js.common.build.system.launch.ui.GenericBuildSystemTab;
+import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
 import org.eclipse.wst.jsdt.js.gulp.GulpPlugin;
 import org.eclipse.wst.jsdt.js.gulp.internal.GulpConstants;
 import org.eclipse.wst.jsdt.js.gulp.internal.Messages;
 import org.eclipse.wst.jsdt.js.gulp.internal.ui.ImageResource;
-import org.eclipse.wst.jsdt.js.gulp.internal.util.GulpUtil;
+import org.eclipse.wst.jsdt.js.gulp.internal.util.GulpVisitor;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
@@ -60,7 +61,7 @@ public class GulpLaunchTab extends GenericBuildSystemTab {
 		try {
 			buildFileLocation = lc.getAttribute(GulpConstants.BUILD_FILE, (String) null);
 			buildFileText.setText(buildFileLocation != null ? buildFileLocation : ""); //$NON-NLS-1$
-			Set<String> tasks = GulpUtil.getTasks(buildFileLocation);
+			Set<String> tasks = ASTUtil.getTasks(buildFileLocation, new GulpVisitor());
 			if (!tasks.isEmpty()) {
 				updateTasks(tasks.toArray(new String[tasks.size()]));
 				String task = lc.getAttribute(GulpConstants.COMMAND, (String) null);
@@ -89,7 +90,7 @@ public class GulpLaunchTab extends GenericBuildSystemTab {
 	
 	@Override
 	protected String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
-		Set<String> tasks = GulpUtil.getTasks(file.getLocation().toOSString());
+		Set<String> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GulpVisitor());
 		return tasks.toArray(new String[tasks.size()]);
 	}
 

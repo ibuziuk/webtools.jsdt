@@ -14,17 +14,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.wst.jsdt.core.dom.ASTVisitor;
 import org.eclipse.wst.jsdt.core.dom.Expression;
 import org.eclipse.wst.jsdt.core.dom.FunctionInvocation;
 import org.eclipse.wst.jsdt.core.dom.ObjectLiteral;
 import org.eclipse.wst.jsdt.core.dom.ObjectLiteralField;
 import org.eclipse.wst.jsdt.core.dom.SimpleName;
+import org.eclipse.wst.jsdt.js.common.build.system.BuildSystemVisitor;
+import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public class GruntVisitor extends ASTVisitor {
+public class GruntVisitor extends BuildSystemVisitor {
 	private Set<String> tasks;
 	private static final String GRUNT = "grunt"; //$NON-NLS-1$
 	private static final String REGISTER_TASK = "registerTask"; //$NON-NLS-1$
@@ -52,14 +53,16 @@ public class GruntVisitor extends ASTVisitor {
 			// http://gruntjs.com/api/grunt.task#grunt.task.registertask
 			if (REGISTER_TASK.equals(functionName.toString()) && GRUNT.equals(expression.toString())) {
 				if (argSize == 2) {
-					tasks.add(arguments.get(0).toString().replaceAll("'", "").replaceAll("\"", "")); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					Expression task = arguments.get(0);
+					tasks.add(ASTUtil.beautify(task)); 
 				}
 				return false;
 			
 			// http://gruntjs.com/api/grunt.task#grunt.task.registermultitask
 			} else if (REGISTER_MULTI_TASK.equals(functionName.toString()) && GRUNT.equals(expression.toString())) {
 				if (argSize == 3) {
-					tasks.add(arguments.get(0).toString().replaceAll("'", "").replaceAll("\"", "")); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					Expression task = arguments.get(0);
+					tasks.add(ASTUtil.beautify(task));
 				}
 				return false;
 				

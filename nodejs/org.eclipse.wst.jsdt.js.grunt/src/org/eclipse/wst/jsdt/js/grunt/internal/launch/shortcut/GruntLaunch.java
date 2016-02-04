@@ -25,8 +25,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 import org.eclipse.wst.jsdt.js.common.build.system.launch.LaunchConfigurationAutoFill;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
-import org.eclipse.wst.jsdt.js.grunt.internal.GulpConstants;
+import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
+import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
@@ -53,41 +53,41 @@ public class GruntLaunch implements ILaunchShortcut {
 		try {
 			IFile buildFile = task.getBuildFile();
 			ILaunchConfigurationType gruntLaunchConfiguraionType = DebugPlugin.getDefault().getLaunchManager()
-					.getLaunchConfigurationType(GulpConstants.LAUNCH_CONFIGURATION_ID); 
+					.getLaunchConfigurationType(GruntConstants.LAUNCH_CONFIGURATION_ID); 
 			
 			// Check if configuration already exists
 			ILaunchConfiguration[] configurations = DebugPlugin.getDefault()
 					.getLaunchManager().getLaunchConfigurations(gruntLaunchConfiguraionType);
 			
 			ILaunchConfiguration existingConfiguraion = LaunchConfigurationAutoFill
-					.chooseLaunchConfiguration(configurations, task, GulpConstants.BUILD_FILE);
+					.chooseLaunchConfiguration(configurations, task, GruntConstants.BUILD_FILE);
 			
 			if (existingConfiguraion != null) {
 				ILaunchConfigurationWorkingCopy wc = existingConfiguraion.getWorkingCopy();
 				// Updating task in the existing launch
-				wc.setAttribute(GulpConstants.COMMAND, task.getName());
+				wc.setAttribute(GruntConstants.COMMAND, task.getName());
 				existingConfiguraion = wc.doSave();
 				DebugUITools.launch(existingConfiguraion, mode);
 			// Creating Launch Configuration from scratch
 			} else if (buildFile != null){
 				IProject project = buildFile.getProject();	
 				ILaunchConfigurationWorkingCopy newConfiguration = createEmptyLaunchConfiguration(project.getName() + " [" + buildFile.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
-				newConfiguration.setAttribute(GulpConstants.BUILD_FILE, buildFile.getLocation().toOSString());
-				newConfiguration.setAttribute(GulpConstants.PROJECT, project.getName());
-				newConfiguration.setAttribute(GulpConstants.DIR, buildFile.getParent().getLocation().toOSString());
-				newConfiguration.setAttribute(GulpConstants.COMMAND, task.getName());
+				newConfiguration.setAttribute(GruntConstants.BUILD_FILE, buildFile.getLocation().toOSString());
+				newConfiguration.setAttribute(GruntConstants.PROJECT, project.getName());
+				newConfiguration.setAttribute(GruntConstants.DIR, buildFile.getParent().getLocation().toOSString());
+				newConfiguration.setAttribute(GruntConstants.COMMAND, task.getName());
 				newConfiguration.doSave();
 				DebugUITools.launch(newConfiguration, mode);				
 			}
 		} catch (CoreException e) {
-			GulpPlugin.logError(e, e.getMessage());
+			GruntPlugin.logError(e, e.getMessage());
 		}
 	}
 
 	private ILaunchConfigurationWorkingCopy createEmptyLaunchConfiguration(String namePrefix) throws CoreException {
 		ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
 		ILaunchConfigurationType launchConfigurationType = launchManager
-				.getLaunchConfigurationType(GulpConstants.LAUNCH_CONFIGURATION_ID);
+				.getLaunchConfigurationType(GruntConstants.LAUNCH_CONFIGURATION_ID);
 		ILaunchConfigurationWorkingCopy launchConfiguration = launchConfigurationType.newInstance(null,
 				launchManager.generateLaunchConfigurationName(namePrefix));
 		return launchConfiguration;

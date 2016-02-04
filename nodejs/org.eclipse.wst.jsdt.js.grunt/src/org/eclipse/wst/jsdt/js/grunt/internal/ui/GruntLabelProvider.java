@@ -20,6 +20,9 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.jsdt.js.common.build.system.Task;
 
+/**
+ * @author "Ilya Buziuk (ibuziuk)"
+ */
 public class GruntLabelProvider extends LabelProvider implements IStyledLabelProvider, IColorProvider{
 	
 	@Override

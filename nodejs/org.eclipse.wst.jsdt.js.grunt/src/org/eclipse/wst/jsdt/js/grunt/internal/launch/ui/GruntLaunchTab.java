@@ -21,12 +21,13 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.js.common.build.system.launch.ui.GenericBuildSystemTab;
+import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
-import org.eclipse.wst.jsdt.js.grunt.internal.GulpConstants;
+import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
+import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
 import org.eclipse.wst.jsdt.js.grunt.internal.Messages;
 import org.eclipse.wst.jsdt.js.grunt.internal.ui.ImageResource;
-import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntUtil;
+import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntVisitor;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
@@ -58,12 +59,12 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 	public void initializeFrom(ILaunchConfiguration lc) {
 		String buildFileLocation = "";  //$NON-NLS-1$
 		try {
-			buildFileLocation = lc.getAttribute(GulpConstants.BUILD_FILE, (String) null);
+			buildFileLocation = lc.getAttribute(GruntConstants.BUILD_FILE, (String) null);
 			buildFileText.setText(buildFileLocation != null ? buildFileLocation : ""); //$NON-NLS-1$
-			Set<String> tasks = GruntUtil.getTasks(buildFileLocation);
+			Set<String> tasks = ASTUtil.getTasks(buildFileLocation, new GruntVisitor());
 			if (!tasks.isEmpty()) {
 				updateTasks(tasks.toArray(new String[tasks.size()]));
-				String task = lc.getAttribute(GulpConstants.COMMAND, (String) null);
+				String task = lc.getAttribute(GruntConstants.COMMAND, (String) null);
 				if (task != null && tasks.contains(task)) {
 					tasksCommbo.setText(task);
 				} else {
@@ -71,7 +72,7 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 				}
 			}	
 		} catch (CoreException e) {
-			GulpPlugin.logError(e, e.getMessage());
+			GruntPlugin.logError(e, e.getMessage());
 		}		
 	}
 
@@ -80,16 +81,16 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 		IFile buildFile = getBuildFile();
 		if (buildFile != null) {
 			IProject project = buildFile.getProject();
-			wc.setAttribute(GulpConstants.BUILD_FILE, buildFile.getLocation().toOSString());
-			wc.setAttribute(GulpConstants.PROJECT, project.getName());
-			wc.setAttribute(GulpConstants.DIR, buildFile.getParent().getLocation().toOSString());
-			wc.setAttribute(GulpConstants.COMMAND, tasksCommbo.getText());
+			wc.setAttribute(GruntConstants.BUILD_FILE, buildFile.getLocation().toOSString());
+			wc.setAttribute(GruntConstants.PROJECT, project.getName());
+			wc.setAttribute(GruntConstants.DIR, buildFile.getParent().getLocation().toOSString());
+			wc.setAttribute(GruntConstants.COMMAND, tasksCommbo.getText());
 		}
 	}
 	
 	@Override
 	protected String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
-		Set<String> tasks = GruntUtil.getTasks(file.getLocation().toOSString());
+		Set<String> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GruntVisitor());
 		return tasks.toArray(new String[tasks.size()]);
 	}
 

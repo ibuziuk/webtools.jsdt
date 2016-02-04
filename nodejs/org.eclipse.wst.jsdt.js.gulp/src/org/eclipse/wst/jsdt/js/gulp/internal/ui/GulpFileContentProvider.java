@@ -73,22 +73,21 @@ public class GulpFileContentProvider implements ITreeContentProvider, IResourceC
 	public Object[] getChildren(Object parentNode) {
 		Object[] children = null;
 		ArrayList<Task> tasks = new ArrayList<>();
-		if (parentNode instanceof IResource) {
-			if (parentNode instanceof IFile) {
-				try {
-					JavaScriptUnit unit = ASTUtil.getJavaScriptUnit((IFile)parentNode);
-					GulpVisitor visitor = new GulpVisitor();
-					unit.accept(visitor);
-					children = visitor.getTasks().toArray();
-					for (Object o : children) {
-						tasks.add(new Task(o.toString(), (IFile) parentNode, false));
-					}
-				} catch (JavaScriptModelException e) {
-					GulpPlugin.logError(e, e.getMessage());
+		if (parentNode instanceof IFile) {
+			try {
+				JavaScriptUnit unit = ASTUtil.getJavaScriptUnit((IFile) parentNode);
+				GulpVisitor visitor = new GulpVisitor();
+				unit.accept(visitor);
+				children = visitor.getTasks().toArray();
+				for (Object o : children) {
+					tasks.add(new Task(o.toString(), (IFile) parentNode, false));
 				}
+			} catch (JavaScriptModelException e) {
+				GulpPlugin.logError(e, e.getMessage());
 			}
 			return tasks.toArray();
 		}
+
 		return null;
 	}
 

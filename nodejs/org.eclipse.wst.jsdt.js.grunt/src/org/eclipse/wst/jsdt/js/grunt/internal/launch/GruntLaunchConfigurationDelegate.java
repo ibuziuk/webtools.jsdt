@@ -23,8 +23,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.jsdt.js.cli.core.CLI;
 import org.eclipse.wst.jsdt.js.cli.core.CLICommand;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
-import org.eclipse.wst.jsdt.js.grunt.internal.GulpConstants;
+import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
+import org.eclipse.wst.jsdt.js.grunt.internal.GruntConstants;
 import org.eclipse.wst.jsdt.js.grunt.internal.Messages;
 
 /**
@@ -34,9 +34,9 @@ public class GruntLaunchConfigurationDelegate implements ILaunchConfigurationDel
 
 	@Override
 	public void launch(ILaunchConfiguration conf, String arg1, ILaunch arg2, IProgressMonitor monitor) throws CoreException {
-		String projectName = conf.getAttribute(GulpConstants.PROJECT, (String) null);
-		String dirPath = conf.getAttribute(GulpConstants.DIR, (String) null);
-		String commandName = conf.getAttribute(GulpConstants.COMMAND, (String) null);
+		String projectName = conf.getAttribute(GruntConstants.PROJECT, (String) null);
+		String dirPath = conf.getAttribute(GruntConstants.DIR, (String) null);
+		String commandName = conf.getAttribute(GruntConstants.COMMAND, (String) null);
 		
 		IProject project = WorkbenchResourceUtil.getProject(projectName);
 		if (project != null && project.exists()) {
@@ -51,14 +51,14 @@ public class GruntLaunchConfigurationDelegate implements ILaunchConfigurationDel
 		try {
 			 new CLI(project, dir).execute(command, monitor);
 		} catch (CoreException e) {
-			GulpPlugin.logError(e);
+			GruntPlugin.logError(e);
 			ErrorDialog.openError(Display.getDefault().getActiveShell(), Messages.GruntLaunchError_Title,
 					Messages.GruntLaunchError_Message, e.getStatus());
 		}
 	}
 	
 	protected CLICommand generateCLICommand(String commandName) {
-		return new CLICommand(GulpConstants.GRUNT, commandName, null, null);
+		return new CLICommand(GruntConstants.GRUNT, commandName, null, null);
 	}
 
 }

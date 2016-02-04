@@ -31,7 +31,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.jsdt.js.common.CommonPlugin;
 
 /**
- * @author "Ilya Buziuk (ibuziuk)"
+ * Utility class to handle workspace IFile picker.
  */
 public class IFileSelectionDialog extends ElementTreeSelectionDialog {
     private String[] extensions;

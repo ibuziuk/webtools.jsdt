@@ -10,22 +10,22 @@
  *******************************************************************************/
 package org.eclipse.wst.jsdt.js.grunt.internal;
 
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
+import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public final class GulpConstants {
+public final class GruntConstants {
 
-	private GulpConstants() {
+	private GruntConstants() {
 	}
 	
 	// Launch constants
-	public static final String LAUNCH_CONFIGURATION_ID = GulpPlugin.PLUGIN_ID + ".gruntLaunchConfigurationType"; //$NON-NLS-1$
-	public static final String PROJECT = GulpPlugin.PLUGIN_ID + ".PROJECT"; //$NON-NLS-1$
-	public static final String DIR = GulpPlugin.PLUGIN_ID + ".DIR"; //$NON-NLS-1$
-	public static final String COMMAND = GulpPlugin.PLUGIN_ID + ".COMMAND"; //$NON-NLS-1$
-	public static final String BUILD_FILE = GulpPlugin.PLUGIN_ID + ".BUILD_FILE"; //$NON-NLS-1$
+	public static final String LAUNCH_CONFIGURATION_ID = GruntPlugin.PLUGIN_ID + ".gruntLaunchConfigurationType"; //$NON-NLS-1$
+	public static final String PROJECT = GruntPlugin.PLUGIN_ID + ".PROJECT"; //$NON-NLS-1$
+	public static final String DIR = GruntPlugin.PLUGIN_ID + ".DIR"; //$NON-NLS-1$
+	public static final String COMMAND = GruntPlugin.PLUGIN_ID + ".COMMAND"; //$NON-NLS-1$
+	public static final String BUILD_FILE = GruntPlugin.PLUGIN_ID + ".BUILD_FILE"; //$NON-NLS-1$
 
 	public static final String GRUNT = "grunt"; //$NON-NLS-1$
 	public static final String GRUNT_FILE_JS = "gruntfile.js"; //$NON-NLS-1$

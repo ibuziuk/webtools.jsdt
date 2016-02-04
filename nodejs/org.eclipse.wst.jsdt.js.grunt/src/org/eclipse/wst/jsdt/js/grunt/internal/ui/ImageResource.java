@@ -17,7 +17,7 @@ import java.util.Map;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.jsdt.js.grunt.GulpPlugin;
+import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 
 /**
  * Utility class to handle image resources.
@@ -33,10 +33,10 @@ public class ImageResource {
 	static {
 		try {
 			String pathSuffix = "icons/"; //$NON-NLS-1$
-			ICON_BASE_URL = GulpPlugin.getDefault().getBundle()
+			ICON_BASE_URL = GruntPlugin.getDefault().getBundle()
 					.getEntry(pathSuffix);
 		} catch (Exception e) {
-			GulpPlugin.logError(e , "Images error: " + e.getMessage()); //$NON-NLS-1$
+			GruntPlugin.logError(e , "Images error: " + e.getMessage()); //$NON-NLS-1$
 		}
 	}
 
@@ -93,7 +93,7 @@ public class ImageResource {
 	 * Initialize the image resources.
 	 */
 	protected static void initializeImageRegistry() {
-		imageRegistry = GulpPlugin.getDefault().getImageRegistry();
+		imageRegistry = GruntPlugin.getDefault().getImageRegistry();
 		imageDescriptors = new HashMap<String, ImageDescriptor>();
 		registerImage(IMG_GRUNTFILE, IMG_GRUNTFILE);
 	}
@@ -112,7 +112,7 @@ public class ImageResource {
 					ICON_BASE_URL, partialURL));
 			registerImageDescriptor(key, id);
 		} catch (Exception e) {
-			GulpPlugin.logError(e , "Error registering image" + e.getMessage()); //$NON-NLS-1$
+			GruntPlugin.logError(e , "Error registering image" + e.getMessage()); //$NON-NLS-1$
 		}
 	}
 

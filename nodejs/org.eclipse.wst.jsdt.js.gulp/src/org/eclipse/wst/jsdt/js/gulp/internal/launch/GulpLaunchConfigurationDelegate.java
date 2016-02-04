@@ -42,12 +42,12 @@ public class GulpLaunchConfigurationDelegate implements ILaunchConfigurationDele
 		if (project != null && project.exists()) {
 			IPath dir = (dirPath == null) ? project.getLocation() : new Path(dirPath);
 			CLICommand command = generateCLICommand(commandName);
-			launchGrunt(project, dir, command, monitor);
+			launchGulp(project, dir, command, monitor);
 		}	
 	}
 	
 
-	private void launchGrunt(IProject project, IPath dir, CLICommand command, IProgressMonitor monitor) {
+	private void launchGulp(IProject project, IPath dir, CLICommand command, IProgressMonitor monitor) {
 		try {
 			 new CLI(project, dir).execute(command, monitor);
 		} catch (CoreException e) {
