@@ -22,9 +22,10 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
 import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
-import org.eclipse.wst.jsdt.js.common.build.system.Task;
+import org.eclipse.wst.jsdt.js.common.build.system.ITask;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
+import org.eclipse.wst.jsdt.js.grunt.internal.GruntTask;
 import org.eclipse.wst.jsdt.js.grunt.internal.util.GruntVisitor;
 
 /**
@@ -76,7 +77,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 	@Override
 	public Object[] getChildren(Object parentNode) {
 		Object[] children = null;
-		ArrayList<Task> tasks = new ArrayList<>();
+		ArrayList<ITask> tasks = new ArrayList<>();
 		if (parentNode instanceof IFile) {
 			try {
 				JavaScriptUnit unit = ASTUtil.getJavaScriptUnit((IFile) parentNode);
@@ -84,7 +85,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 				unit.accept(visitor);
 				children = visitor.getTasks().toArray();
 				for (Object o : children) {
-					tasks.add(new Task(o.toString(), (IFile) parentNode, false));
+					tasks.add(new GruntTask(o.toString(), (IFile) parentNode, false));
 				}
 			} catch (JavaScriptModelException e) {
 				GruntPlugin.logError(e, e.getMessage());

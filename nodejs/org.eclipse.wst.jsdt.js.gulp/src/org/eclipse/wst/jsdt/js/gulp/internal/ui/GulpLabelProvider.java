@@ -18,14 +18,14 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.wst.jsdt.js.common.build.system.Task;
+import org.eclipse.wst.jsdt.js.common.build.system.ITask;
 
 public class GulpLabelProvider extends LabelProvider implements IStyledLabelProvider, IColorProvider{
 	
 	@Override
 	public Image getImage(Object element) {
 		//DESIGN-735 Need to create icon for JavaScript Build Systems
-		if (element instanceof Task) {
+		if (element instanceof ITask) {
 			return ImageResource.getImage(ImageResource.IMG_GULPFILE);
 		}
 		return super.getImage(element);
@@ -43,8 +43,8 @@ public class GulpLabelProvider extends LabelProvider implements IStyledLabelProv
 
 	@Override
 	public StyledString getStyledText(Object object) {
-		if (object instanceof Task) {
-			return new StyledString(((Task) object).getName());
+		if (object instanceof ITask) {
+			return new StyledString(((ITask) object).getName());
 		}
 		return null;
 	}

@@ -8,19 +8,20 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.common.build.system;
+package org.eclipse.wst.jsdt.js.grunt.internal;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.wst.jsdt.js.common.build.system.ITask;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
  */
-public class Task implements ITask {
+public class GruntTask implements ITask {
 	private String name;
 	private boolean isDefault;
 	private IFile buildFile;
 	
-	public Task(String name, IFile buildFile, boolean isDefault) {
+	public GruntTask(String name, IFile buildFile, boolean isDefault) {
 		this.name = name;
 		this.buildFile = buildFile;
 		this.isDefault = isDefault;

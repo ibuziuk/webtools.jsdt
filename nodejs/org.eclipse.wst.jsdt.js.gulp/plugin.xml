@@ -56,10 +56,17 @@
            <enablement>
              <with variable="selection">
                <count value="1"/>
-             </with>
-                <iterate>
-                  <instanceof value="org.eclipse.wst.jsdt.js.common.build.system.ITask" />
+                <iterate ifEmpty="false">
+                  <or>
+	                  <instanceof value="org.eclipse.wst.jsdt.js.gulp.internal.GulpTask" />
+	                  <adapt type="org.eclipse.core.resources.IResource">
+			             <test property="org.eclipse.core.resources.name"
+	                     	   value="gulpfile.js">
+			             </test>
+	         		  </adapt>
+                  </or>
                </iterate>
+             </with>
            </enablement>
            <contextLabel
          	  mode="run"
