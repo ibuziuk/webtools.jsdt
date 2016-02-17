@@ -49,11 +49,11 @@ public class GruntLaunchConfigurationDelegate implements ILaunchConfigurationDel
 
 	private void launchGrunt(IProject project, IPath dir, CLICommand command, IProgressMonitor monitor) {
 		try {
-			 new CLI(project, dir).execute(command, monitor);
+			new CLI(project, dir).execute(command, monitor);
 		} catch (CoreException e) {
 			GruntPlugin.logError(e);
-			ErrorDialog.openError(Display.getDefault().getActiveShell(), Messages.GruntLaunchError_Title,
-					Messages.GruntLaunchError_Message, e.getStatus());
+			WorkbenchResourceUtil.showErrorDialog(Messages.GruntLaunchError_Title, Messages.GruntLaunchError_Message,
+					e.getStatus());
 		}
 	}
 	

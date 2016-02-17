@@ -36,18 +36,18 @@ public class GulpLaunch implements ILaunchShortcut {
 	@Override
 	public void launch(ISelection selection, String mode) {
 		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
-			 Object element = ((IStructuredSelection)selection).getFirstElement();
-			 element.toString();
-			 if (element instanceof ITask) {
-				 ITask task = (ITask) element;
-				 launch(task,  mode);
-			 // Launch for gulpfile.js
-			 } else if (element instanceof IFile) {
-				 launch(createDefaultTask((IFile) element), mode);
-			 }
+			Object element = ((IStructuredSelection) selection).getFirstElement();
+			element.toString();
+			if (element instanceof ITask) {
+				ITask task = (ITask) element;
+				launch(task, mode);
+			// Launch for gulpfile.js
+			} else if (element instanceof IFile) {
+				launch(createDefaultTask((IFile) element), mode);
+			}
 		}
 	}
-	
+
 	@Override
 	public void launch(IEditorPart arg0, String arg1) {	
 	}
