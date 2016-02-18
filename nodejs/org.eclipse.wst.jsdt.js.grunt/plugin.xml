@@ -5,15 +5,30 @@
 			point="org.eclipse.ui.navigator.viewer">
 		<viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
 			<includes>
-				<contentExtension pattern="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntFileContent" />
+				<contentExtension pattern="org.eclipse.wst.jsdt.js.grunt.internal.ui.gruntFileContent" />
+				<contentExtension pattern="org.eclipse.wst.jsdt.js.grunt.internal.ui.taskLinkHelper" />
 			</includes>
 		</viewerContentBinding>
 	</extension>
 	
+	<extension
+          point="org.eclipse.ui.navigator.linkHelper">
+       <linkHelper
+             class="org.eclipse.wst.jsdt.js.grunt.internal.ui.navigator.TaskLinkHelper"
+             id="org.eclipse.wst.jsdt.js.grunt.internal.ui.taskLinkHelper">
+          <selectionEnablement>
+             <instanceof value="org.eclipse.wst.jsdt.js.common.build.system.ITask"/>
+          </selectionEnablement>
+          <editorInputEnablement>
+             <instanceof value="org.eclipse.ui.IFileEditorInput"/>
+          </editorInputEnablement>
+       </linkHelper>
+    </extension>
+	
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent 
-            id="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntFileContent" 
+            id="org.eclipse.wst.jsdt.js.grunt.internal.ui.gruntFileContent" 
             name="Grunt Task Content Provider"
             contentProvider="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntFileContentProvider"
             labelProvider="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntLabelProvider" 
@@ -101,6 +116,6 @@
         id="org.eclipse.wst.jsdt.js.grunt.tabgroup">
     </launchConfigurationTabGroup>
   </extension>
-    
+      
 </plugin>
 

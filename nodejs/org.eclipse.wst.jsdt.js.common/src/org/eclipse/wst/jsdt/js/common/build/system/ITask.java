@@ -20,5 +20,6 @@ public interface ITask {
 	String getName();
 	boolean isDefault();
 	IFile getBuildFile();
+	Location getLocation();
 	
 }

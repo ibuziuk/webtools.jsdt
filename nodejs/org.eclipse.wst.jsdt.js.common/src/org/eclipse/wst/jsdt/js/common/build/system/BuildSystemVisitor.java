@@ -19,5 +19,5 @@ import org.eclipse.wst.jsdt.core.dom.ASTVisitor;;
  */
 public abstract class BuildSystemVisitor extends ASTVisitor {
 
-	public abstract Set<String> getTasks();
+	public abstract Set<ITask> getTasks();
 }

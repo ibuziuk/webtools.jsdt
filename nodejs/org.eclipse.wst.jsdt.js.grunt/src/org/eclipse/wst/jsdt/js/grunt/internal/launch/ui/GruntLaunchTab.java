@@ -20,6 +20,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
+import org.eclipse.wst.jsdt.js.common.build.system.ITask;
 import org.eclipse.wst.jsdt.js.common.build.system.launch.ui.GenericBuildSystemTab;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
@@ -61,14 +62,22 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 		try {
 			buildFileLocation = lc.getAttribute(GruntConstants.BUILD_FILE, (String) null);
 			buildFileText.setText(buildFileLocation != null ? buildFileLocation : ""); //$NON-NLS-1$
-			Set<String> tasks = ASTUtil.getTasks(buildFileLocation, new GruntVisitor());
+			
+			File file = WorkbenchResourceUtil.getFile(buildFileLocation);
+			IFile ifile = null;
+			if (file != null) {
+				ifile = WorkbenchResourceUtil.getFileForLocation(file.getAbsolutePath());
+			}
+			
+			
+			Set<ITask> tasks = ASTUtil.getTasks(buildFileLocation, new GruntVisitor(ifile));
 			if (!tasks.isEmpty()) {
 				updateTasks(tasks.toArray(new String[tasks.size()]));
 				String task = lc.getAttribute(GruntConstants.COMMAND, (String) null);
 				if (task != null && tasks.contains(task)) {
 					tasksCommbo.setText(task);
 				} else {
-					tasksCommbo.setText(tasks.iterator().next());
+					tasksCommbo.setText(tasks.iterator().next().getName());
 				}
 			}	
 		} catch (CoreException e) {
@@ -90,7 +99,7 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 	
 	@Override
 	protected String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
-		Set<String> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GruntVisitor());
+		Set<ITask> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GruntVisitor(file));
 		return tasks.toArray(new String[tasks.size()]);
 	}
 

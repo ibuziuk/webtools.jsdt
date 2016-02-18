@@ -98,7 +98,7 @@ public class GruntLaunch implements ILaunchShortcut {
 	}
 	
 	private ITask createDefaultTask(IFile resource) {
-		return new GruntTask("", resource, true); //$NON-NLS-1$
+		return new GruntTask("", resource, true, null); //$NON-NLS-1$
 	}
 	
 }
