@@ -12,7 +12,6 @@ package org.eclipse.wst.jsdt.js.common.build.system;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdapterFactory;
-import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
@@ -24,7 +23,7 @@ public class FileAdapterFactory implements IAdapterFactory {
 
 	@Override
 	public Object getAdapter(Object element, Class key) {
-		JavaScriptUnit node = getJSBuildFileNode(element);
+		ITask node = getJSBuildFileNode(element);
 		if (node == null) {
 			return null;
 		}
@@ -34,13 +33,13 @@ public class FileAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	private Object getResource(JavaScriptUnit node) {
-		return node.getJavaElement();
+	private Object getResource(ITask node) {
+		return node.getBuildFile();
 	}
 
-	private JavaScriptUnit getJSBuildFileNode(Object element) {
-		if (element instanceof JavaScriptUnit) {
-			return (JavaScriptUnit) element;
+	private ITask getJSBuildFileNode(Object element) {
+		if (element instanceof ITask) {
+			return (ITask) element;
 		}
 		return null;
 	}

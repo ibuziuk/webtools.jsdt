@@ -49,7 +49,7 @@
    
    <extension point="org.eclipse.core.runtime.adapters">
 		<factory 
-            class="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntFileAdapterFactory" 
+            class="org.eclipse.wst.jsdt.js.common.build.system.FileAdapterFactory" 
             adaptableType="org.eclipse.wst.jsdt.js.common.build.system.ITask">
             <adapter
                type="org.eclipse.debug.ui.actions.ILaunchable">
