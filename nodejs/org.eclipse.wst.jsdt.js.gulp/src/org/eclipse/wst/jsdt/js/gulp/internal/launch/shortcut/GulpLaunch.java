@@ -97,7 +97,7 @@ public class GulpLaunch implements ILaunchShortcut {
 	}
 	
 	private ITask createDefaultTask(IFile resource) {
-		return new GulpTask("", resource, true); //$NON-NLS-1$
+		return new GulpTask("", resource, true, null); //$NON-NLS-1$
 	}
 
 }

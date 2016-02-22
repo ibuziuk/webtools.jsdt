@@ -80,8 +80,7 @@ public class GruntVisitor extends BuildSystemVisitor {
 					ObjectLiteral jsObject = (ObjectLiteral) arguments.get(0);
 					List<ObjectLiteralField> fields = jsObject.fields();
 					for (ObjectLiteralField f : fields) {
-						tasks.add(new GruntTask((f.getFieldName().toString()), file, false,
-								new Location(f.getStartPosition(), f.getLength())));
+						tasks.add(new GruntTask((f.getFieldName().toString()), file, false, new Location(f.getStartPosition(), f.getLength())));
 					}
 				}
 				return false;

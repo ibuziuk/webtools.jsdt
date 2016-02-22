@@ -11,7 +11,9 @@
 package org.eclipse.wst.jsdt.js.gulp.internal.ui;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -72,17 +74,13 @@ public class GulpFileContentProvider implements ITreeContentProvider, IResourceC
 	 */
 	@Override
 	public Object[] getChildren(Object parentNode) {
-		Object[] children = null;
-		ArrayList<ITask> tasks = new ArrayList<>();
+		Set<ITask> tasks = null;
 		if (parentNode instanceof IFile) {
 			try {
 				JavaScriptUnit unit = ASTUtil.getJavaScriptUnit((IFile) parentNode);
-				GulpVisitor visitor = new GulpVisitor();
+				GulpVisitor visitor = new GulpVisitor((IFile)parentNode);
 				unit.accept(visitor);
-				children = visitor.getTasks().toArray();
-				for (Object o : children) {
-					tasks.add(new GulpTask(o.toString(), (IFile) parentNode, false));
-				}
+				tasks = visitor.getTasks();
 			} catch (JavaScriptModelException e) {
 				GulpPlugin.logError(e, e.getMessage());
 			}

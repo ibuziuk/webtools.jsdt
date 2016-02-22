@@ -82,6 +82,7 @@ public class GruntFileContentProvider implements ITreeContentProvider, IResource
 				GruntVisitor visitor = new GruntVisitor((IFile) parentNode);
 				unit.accept(visitor);
 				tasks = visitor.getTasks();
+				
 			} catch (JavaScriptModelException e) {
 				GruntPlugin.logError(e, e.getMessage());
 			}

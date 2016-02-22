@@ -1,4 +1,4 @@
-package org.eclipse.wst.jsdt.js.grunt.internal.ui.navigator;
+package org.eclipse.wst.jsdt.js.common.ui.navigator;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -7,9 +7,10 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.navigator.ILinkHelper;
 import org.eclipse.wst.jsdt.js.common.build.system.ITask;
+import org.eclipse.wst.jsdt.js.common.util.EditorUtility;
 
 public class TaskLinkHelper implements ILinkHelper {
-
+	
 	@Override
 	public void activateEditor(IWorkbenchPage page, IStructuredSelection selection) {
 		if (selection == null || selection.isEmpty())
@@ -28,7 +29,7 @@ public class TaskLinkHelper implements ILinkHelper {
 	}
 		
 	@Override
-	public IStructuredSelection findSelection(IEditorInput arg0) {
+	public IStructuredSelection findSelection(IEditorInput input) {
 		return StructuredSelection.EMPTY;
 	}
 

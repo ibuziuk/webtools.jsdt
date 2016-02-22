@@ -11,6 +11,8 @@
 package org.eclipse.wst.jsdt.js.grunt.internal.launch.ui;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -72,7 +74,7 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 			
 			Set<ITask> tasks = ASTUtil.getTasks(buildFileLocation, new GruntVisitor(ifile));
 			if (!tasks.isEmpty()) {
-				updateTasks(tasks.toArray(new String[tasks.size()]));
+				updateTasks(getTaskNames(tasks));
 				String task = lc.getAttribute(GruntConstants.COMMAND, (String) null);
 				if (task != null && tasks.contains(task)) {
 					tasksCommbo.setText(task);
@@ -100,12 +102,21 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 	@Override
 	protected String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
 		Set<ITask> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GruntVisitor(file));
-		return tasks.toArray(new String[tasks.size()]);
+		return getTaskNames(tasks);
 	}
 
+	private String[] getTaskNames(Set<ITask> tasks) {
+		List<String> names = new ArrayList<>();
+		if (!tasks.isEmpty()) {
+			for (ITask task : tasks) {
+				names.add(task.getName());
+			}
+		}
+		return names.toArray(new String[names.size()]);
+	}
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy arg0) {		
+	public void setDefaults(ILaunchConfigurationWorkingCopy arg0) {
 	}
 	
 }

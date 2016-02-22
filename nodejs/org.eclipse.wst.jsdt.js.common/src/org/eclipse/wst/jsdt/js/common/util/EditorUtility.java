@@ -1,5 +1,6 @@
-package org.eclipse.wst.jsdt.js.grunt.internal.ui.navigator;
+package org.eclipse.wst.jsdt.js.common.util;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -10,9 +11,9 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.ITextEditor;
+import org.eclipse.wst.jsdt.js.common.CommonPlugin;
 import org.eclipse.wst.jsdt.js.common.build.system.ITask;
 import org.eclipse.wst.jsdt.js.common.build.system.Location;
-import org.eclipse.wst.jsdt.js.grunt.GruntPlugin;
 
 public class EditorUtility {
 
@@ -24,16 +25,14 @@ public class EditorUtility {
 	 */
 	public static IEditorPart isOpenInEditor(ITask task) {
 		IEditorInput input = new FileEditorInput(task.getBuildFile());
-		IWorkbenchPage p = GruntPlugin.getActivePage();
+		IWorkbenchPage p = CommonPlugin.getActivePage();
 		if (p != null) {
 			return p.findEditor(input);
 		}
 		return null;
 	}
 
-
-	public static void revealInEditor(IEditorPart editorPart,
-			ITask task) {
+	public static void revealInEditor(IEditorPart editorPart, ITask task) {
 		revealInEditor(editorPart, task, null);
 	}
 
@@ -59,21 +58,21 @@ public class EditorUtility {
 					}
 				}
 			}
-		} /*else {
-			Location location = element.getLocation(null);
+		} else {
+			Location location = task.getLocation();
 			if (location != null) {
-				IFile fileResource = element.getBuildFile().getBuildFileResource();
+				IFile fileResource = task.getBuildFile();
 				int start = location.getStart();
 				try {
-					IMarker marker = fileResource.createMarker("org.eclipse.core.resources.textmarker");
-					marker.setAttribute("lineNumber", start);
+					IMarker marker = fileResource.createMarker("org.eclipse.core.resources.textmarker"); //$NON-NLS-1$
+					marker.setAttribute("lineNumber", start); //$NON-NLS-1$
 					editorPart = IDE.openEditor(page, marker, true);
 					marker.delete();
 				} catch (CoreException e) {
-					GruntPlugin.logError(e);
+					CommonPlugin.logError(e);
 				}
 			}
-		}*/
+		}
 
 	}
 }

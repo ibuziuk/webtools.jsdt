@@ -11,6 +11,8 @@
 package org.eclipse.wst.jsdt.js.gulp.internal.launch.ui;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -20,6 +22,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.jsdt.core.JavaScriptModelException;
+import org.eclipse.wst.jsdt.js.common.build.system.ITask;
 import org.eclipse.wst.jsdt.js.common.build.system.launch.ui.GenericBuildSystemTab;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.common.util.WorkbenchResourceUtil;
@@ -61,14 +64,24 @@ public class GulpLaunchTab extends GenericBuildSystemTab {
 		try {
 			buildFileLocation = lc.getAttribute(GulpConstants.BUILD_FILE, (String) null);
 			buildFileText.setText(buildFileLocation != null ? buildFileLocation : ""); //$NON-NLS-1$
-			Set<String> tasks = ASTUtil.getTasks(buildFileLocation, new GulpVisitor());
+			
+			
+			File file = WorkbenchResourceUtil.getFile(buildFileLocation);
+			IFile ifile = null;
+			if (file != null) {
+				ifile = WorkbenchResourceUtil.getFileForLocation(file.getAbsolutePath());
+			}
+			
+			
+			Set<ITask> tasks = ASTUtil.getTasks(buildFileLocation, new GulpVisitor(ifile));
+			
 			if (!tasks.isEmpty()) {
-				updateTasks(tasks.toArray(new String[tasks.size()]));
+				updateTasks(getTaskNames(tasks));
 				String task = lc.getAttribute(GulpConstants.COMMAND, (String) null);
 				if (task != null && tasks.contains(task)) {
 					tasksCommbo.setText(task);
 				} else {
-					tasksCommbo.setText(tasks.iterator().next());
+					tasksCommbo.setText(tasks.iterator().next().getName());
 				}
 			}	
 		} catch (CoreException e) {
@@ -90,8 +103,18 @@ public class GulpLaunchTab extends GenericBuildSystemTab {
 	
 	@Override
 	protected String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
-		Set<String> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GulpVisitor());
-		return tasks.toArray(new String[tasks.size()]);
+		Set<ITask> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GulpVisitor(file));
+		return getTaskNames(tasks);
+	}
+	
+	private String[] getTaskNames(Set<ITask> tasks) {
+		List<String> names = new ArrayList<>();
+		if (!tasks.isEmpty()) {
+			for (ITask task : tasks) {
+				names.add(task.getName());
+			}
+		}
+		return names.toArray(new String[names.size()]);
 	}
 
 

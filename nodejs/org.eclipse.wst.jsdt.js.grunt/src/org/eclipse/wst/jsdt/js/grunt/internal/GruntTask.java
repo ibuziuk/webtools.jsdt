@@ -27,7 +27,7 @@ public class GruntTask implements ITask {
 		this.name = name;
 		this.buildFile = buildFile;
 		this.isDefault = isDefault;
-		
+		this.location = location;
 	}
 	
 	@Override
