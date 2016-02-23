@@ -11,6 +11,7 @@
 package org.eclipse.wst.jsdt.js.gulp.internal.ui;
 
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
@@ -27,7 +28,9 @@ public class GulpLabelProvider extends LabelProvider implements IStyledLabelProv
 		//DESIGN-735 Need to create icon for JavaScript Build Systems
 		if (element instanceof ITask) {
 			return ImageResource.getImage(ImageResource.IMG_GULPFILE);
-		}
+		} else if (element instanceof IFile) {
+			return ImageResource.getImage(ImageResource.IMG_GULPFILE);
+		} 
 		return super.getImage(element);
 	}
 

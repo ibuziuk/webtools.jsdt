@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.jsdt.js.grunt.internal.ui;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -29,6 +30,8 @@ public class GruntLabelProvider extends LabelProvider implements IStyledLabelPro
 	public Image getImage(Object element) {
 		//DESIGN-735 Need to create icon for JavaScript Build Systems
 		if (element instanceof ITask) {
+			return ImageResource.getImage(ImageResource.IMG_GRUNTFILE);
+		} else if (element instanceof IFile) {
 			return ImageResource.getImage(ImageResource.IMG_GRUNTFILE);
 		}
 		return super.getImage(element);
