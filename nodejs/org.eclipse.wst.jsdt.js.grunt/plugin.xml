@@ -20,7 +20,7 @@
             labelProvider="org.eclipse.wst.jsdt.js.grunt.internal.ui.GruntLabelProvider" 
             activeByDefault="true"
             icon="icons/grunt_16.png"
-            priority="high" >
+            priority="highest" >
          <triggerPoints>
 	            <and>
 	               <instanceof value="org.eclipse.core.resources.IResource"/>

@@ -23,21 +23,21 @@ public class FileAdapterFactory implements IAdapterFactory {
 
 	@Override
 	public Object getAdapter(Object element, Class key) {
-		ITask node = getJSBuildFileNode(element);
+		ITask node = getTask(element);
 		if (node == null) {
 			return null;
 		}
 		if (IResource.class.equals(key)) {
-			return getResource(node);
+			return getBuildFile(node);
 		}
 		return null;
 	}
 
-	private Object getResource(ITask node) {
+	private Object getBuildFile(ITask node) {
 		return node.getBuildFile();
 	}
 
-	private ITask getJSBuildFileNode(Object element) {
+	private ITask getTask(Object element) {
 		if (element instanceof ITask) {
 			return (ITask) element;
 		}
