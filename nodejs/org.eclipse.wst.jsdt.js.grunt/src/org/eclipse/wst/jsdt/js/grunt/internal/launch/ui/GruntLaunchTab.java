@@ -11,8 +11,6 @@
 package org.eclipse.wst.jsdt.js.grunt.internal.launch.ui;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -103,16 +101,6 @@ public class GruntLaunchTab extends GenericBuildSystemTab {
 	protected String[] getTasksFromFile(IFile file) throws JavaScriptModelException {
 		Set<ITask> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GruntVisitor(file));
 		return getTaskNames(tasks);
-	}
-
-	private String[] getTaskNames(Set<ITask> tasks) {
-		List<String> names = new ArrayList<>();
-		if (!tasks.isEmpty()) {
-			for (ITask task : tasks) {
-				names.add(task.getName());
-			}
-		}
-		return names.toArray(new String[names.size()]);
 	}
 
 	@Override

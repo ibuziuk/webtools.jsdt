@@ -4,7 +4,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -46,7 +45,6 @@ public class EditorUtility {
 		else if (editorPart instanceof IAdaptable)
 			textEditor = (ITextEditor) editorPart.getAdapter(ITextEditor.class);
 		if (textEditor != null) {
-			IDocument document = textEditor.getDocumentProvider().getDocument(editorPart.getEditorInput());
 			Location location = task.getLocation();
 			if (location != null) {
 				int start = location.getStart();

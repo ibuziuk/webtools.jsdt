@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.jsdt.js.gulp.internal.ui;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +25,6 @@ import org.eclipse.wst.jsdt.core.dom.JavaScriptUnit;
 import org.eclipse.wst.jsdt.js.common.build.system.ITask;
 import org.eclipse.wst.jsdt.js.common.build.system.util.ASTUtil;
 import org.eclipse.wst.jsdt.js.gulp.GulpPlugin;
-import org.eclipse.wst.jsdt.js.gulp.internal.GulpTask;
 import org.eclipse.wst.jsdt.js.gulp.internal.util.GulpVisitor;
 
 public class GulpFileContentProvider implements ITreeContentProvider, IResourceChangeListener {

@@ -19,7 +19,7 @@
             labelProvider="org.eclipse.wst.jsdt.js.gulp.internal.ui.GulpLabelProvider" 
             activeByDefault="true"
             icon="icons/gulp_16.png"
-            priority="high" >
+            priority="highest" >
          <triggerPoints>
 	            <and>
 	               <instanceof value="org.eclipse.core.resources.IResource"/>

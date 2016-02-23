@@ -11,8 +11,6 @@
 package org.eclipse.wst.jsdt.js.gulp.internal.launch.ui;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -106,20 +104,9 @@ public class GulpLaunchTab extends GenericBuildSystemTab {
 		Set<ITask> tasks = ASTUtil.getTasks(file.getLocation().toOSString(), new GulpVisitor(file));
 		return getTaskNames(tasks);
 	}
-	
-	private String[] getTaskNames(Set<ITask> tasks) {
-		List<String> names = new ArrayList<>();
-		if (!tasks.isEmpty()) {
-			for (ITask task : tasks) {
-				names.add(task.getName());
-			}
-		}
-		return names.toArray(new String[names.size()]);
-	}
-
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy arg0) {		
+	public void setDefaults(ILaunchConfigurationWorkingCopy wc) {		
 	}
 	
 }
