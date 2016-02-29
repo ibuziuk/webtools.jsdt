@@ -7,6 +7,9 @@
 package org.eclipse.wst.jsdt.chromium.debug.core.model;
 
 
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.model.IBreakpoint;
 
 /**
@@ -18,7 +21,16 @@ public class ChromiumBreakpointAdapter {
       return null;
     }
     if (breakpoint instanceof ChromiumLineBreakpoint == false) {
-      return null;
+			try {
+				IMarker marker = breakpoint.getMarker();
+				IResource resource = marker.getResource();
+				Object line = marker.getAttribute(IMarker.LINE_NUMBER);
+				Object id = marker.getAttribute(IBreakpoint.ID);
+				return new ChromiumLineBreakpoint(resource, (int) line, id.toString());
+			} catch (CoreException e) {
+				return null;
+			}
+//    	return null;
     }
     return (ChromiumLineBreakpoint) breakpoint;
   }

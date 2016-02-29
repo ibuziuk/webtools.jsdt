@@ -32,7 +32,6 @@ import org.eclipse.wst.jsdt.debug.internal.core.model.JavaScriptDebugTarget;
  * @since 1.0
  */
 public class JavaScriptLineBreakpoint extends JavaScriptBreakpoint implements IJavaScriptLineBreakpoint {
-
 	/**
 	 * The condition for the breakpoint
 	 */
@@ -67,22 +66,14 @@ public class JavaScriptLineBreakpoint extends JavaScriptBreakpoint implements IJ
 	public JavaScriptLineBreakpoint(final IResource resource, final int linenumber, final int charstart, final int charend, final Map attributes, final boolean register) throws DebugException {
 		IWorkspaceRunnable wr = new IWorkspaceRunnable() {
 			public void run(IProgressMonitor monitor) throws CoreException {
-
-				// create the marker
-				setMarker(resource.createMarker(IJavaScriptLineBreakpoint.MARKER_ID));
-
-				// add attributes
-				attributes.put(IBreakpoint.ID, getModelIdentifier());
-				attributes.put(IBreakpoint.ENABLED, Boolean.valueOf(true));
-				attributes.put(IMarker.LINE_NUMBER, Integer.valueOf(linenumber));
-				attributes.put(IMarker.CHAR_START, Integer.valueOf(charstart));
-				attributes.put(IMarker.CHAR_END, Integer.valueOf(charend));
-
-				ensureMarker().setAttributes(attributes);
-
-				// add to breakpoint manager if requested
-				register(register);
-			}
+		        IMarker marker = resource.createMarker("org.eclipse.wst.jsdt.chromium.debug.core.LineBP"); //$NON-NLS-1$
+		        marker.setAttribute(IBreakpoint.ENABLED, Boolean.TRUE);
+		        marker.setAttribute(IMarker.LINE_NUMBER, linenumber);
+		        marker.setAttribute(IBreakpoint.ID, "org.eclipse.wst.jsdt.chromium.debug"); //$NON-NLS-1$
+		        marker.setAttribute(IMarker.MESSAGE, "test"); //$NON-NLS-1$
+		        setMarker(marker);
+		        register(register);
+		      }
 		};
 		run(getMarkerRule(resource), wr);
 	}
