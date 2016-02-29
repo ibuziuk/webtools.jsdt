@@ -37,7 +37,7 @@ public final class NpmUtil {
 
 	public static boolean isPackageJsonExist(final IProject project) throws CoreException {
 		IFile packageJson = null;
-		if (project != null && project.exists()) {
+		if (project != null && project.exists() && project.isOpen()) {
 			packageJson = WorkbenchResourceUtil.findFileRecursively(project, NpmConstants.PACKAGE_JSON);
 		}
 		return (packageJson != null && packageJson.exists());

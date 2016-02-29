@@ -24,7 +24,7 @@
                 <with variable="selection">
                     <count value="1"/>
                     <iterate>
-                        <adapt  type="org.eclipse.core.resources.IResource">
+                        <adapt type="org.eclipse.core.resources.IResource">
 	                        <test property="org.eclipse.wst.jsdt.js.bower.isBowerInit" 
 	                           	forcePluginActivation="true"/>
                         </adapt> 

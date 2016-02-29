@@ -41,7 +41,7 @@ public final class BowerUtil {
 
 	public static boolean isBowerJsonExist(final IProject project) throws CoreException {
 		IFile bowerJson = null;
-		if (project != null && project.exists()) {
+		if (project != null && project.exists() && project.isOpen()) {
 			bowerJson = WorkbenchResourceUtil.findFileRecursively(project, BowerConstants.BOWER_JSON);
 		}
 		return (bowerJson != null && bowerJson.exists());
@@ -71,7 +71,7 @@ public final class BowerUtil {
 	 */
 	public static IFile getBowerrc(IProject project) throws CoreException {
 		IFile bowerrc = null;
-		if (project != null && project.exists()) {
+		if (project != null && project.exists() && project.isOpen()) {
 			bowerrc = WorkbenchResourceUtil.findFileRecursively(project, BowerConstants.BOWERRC);
 		}
 		return bowerrc;
