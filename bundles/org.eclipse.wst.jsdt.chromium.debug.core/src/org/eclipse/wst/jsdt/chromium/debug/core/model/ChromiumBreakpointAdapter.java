@@ -6,24 +6,47 @@
 
 package org.eclipse.wst.jsdt.chromium.debug.core.model;
 
-
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.model.IBreakpoint;
+import org.eclipse.wst.jsdt.chromium.debug.core.ChromiumDebugPlugin;
 
 /**
- * Implements breakpoint adapter for breakpoints provided by org.eclipse.wst.jsdt.chromium.debug.*
+ * Implements breakpoint adapter for breakpoints provided by
+ * org.eclipse.wst.jsdt.chromium.debug.*
  */
 public class ChromiumBreakpointAdapter {
-  public static ChromiumLineBreakpoint tryCastBreakpoint(IBreakpoint breakpoint) {
-    if (!supportsBreakpoint(breakpoint)) {
-      return null;
-    }
-    if (breakpoint instanceof ChromiumLineBreakpoint == false) {
-      return null;
-    }
-    return (ChromiumLineBreakpoint) breakpoint;
-  }
+	// Bug 486061 - Translate breakpoints from .js files to Chromium / Node V8
+	private static final String JSDT_BREAKPOINT_MODEL_ID = "org.eclipse.wst.jsdt.debug.model"; //$NON-NLS-1$
 
-  private static boolean supportsBreakpoint(IBreakpoint breakpoint) {
-    return VProjectWorkspaceBridge.DEBUG_MODEL_ID.equals(breakpoint.getModelIdentifier());
-  }
+	public static ChromiumLineBreakpoint tryCastBreakpoint(IBreakpoint breakpoint) {
+		if (!supportsBreakpoint(breakpoint)) {
+			return null;
+		}
+		if (breakpoint instanceof ChromiumLineBreakpoint) {
+			return (ChromiumLineBreakpoint) breakpoint;
+		}
+
+		try {
+			return tryCastJSDTBreakpoint(breakpoint);
+		} catch (CoreException e) {
+			ChromiumDebugPlugin.logError(e.getMessage(), e);
+		}
+
+		return null;
+	}
+
+	private static boolean supportsBreakpoint(IBreakpoint breakpoint) {
+		String modelId = breakpoint.getModelIdentifier();
+		return (VProjectWorkspaceBridge.DEBUG_MODEL_ID.equals(modelId) || JSDT_BREAKPOINT_MODEL_ID.equals(modelId));
+	}
+
+	private static ChromiumLineBreakpoint tryCastJSDTBreakpoint(IBreakpoint breakpoint) throws CoreException {
+		IMarker marker = breakpoint.getMarker();
+		Object line = marker.getAttribute(IMarker.LINE_NUMBER);
+		IResource resource = marker.getResource();
+		return new ChromiumLineBreakpoint(resource, (int) line, VProjectWorkspaceBridge.DEBUG_MODEL_ID);
+	}
+
 }
