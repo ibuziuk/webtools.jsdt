@@ -1,8 +1,11 @@
-// Copyright (c) 2009 The Chromium Authors. All rights reserved.
+// Copyright (c) 2009, 2016 The Chromium Authors. All rights reserved.
 // This program and the accompanying materials are made available
 // under the terms of the Eclipse Public License v1.0 which accompanies
 // this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v10.html
+//
+// Contributors:
+//      Ilya Buziuk <ilyabuziuk@gmail.com> - https://bugs.eclipse.org/bugs/show_bug.cgi?id=486061
 
 package org.eclipse.wst.jsdt.chromium.debug.core.model;
 
@@ -50,6 +53,9 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
 
   /** Condition */
   private static final String CONDITION_ATTR = ChromiumDebugPlugin.PLUGIN_ID + ".condition"; //$NON-NLS-1$
+  
+  /** Using {@link JavaScriptBreakpoint} Marker if breakpoint was created via it**/
+  private IMarker jsdtMarker;
 
   /**
    * Default constructor is required for the breakpoint manager to re-create
@@ -83,6 +89,30 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
     run(getMarkerRule(resource), runnable);
   }
 
+	/**
+	 * Constructor for creating {@link ChromiumLineBreakpoint}
+	 * {@link JavaScriptBreakpoint} and using it's {@link IMarker}
+	 *
+	 * @param IBreakpoint
+	 *            {@link JavaScriptBreakpoint} 
+	 */
+	ChromiumLineBreakpoint(IBreakpoint breakpoint) {
+		if (breakpoint != null) {
+			this.jsdtMarker = breakpoint.getMarker();
+		}
+	}
+
+	/**
+	 * @return {@link IMarker} of {@link JavaScriptBreakpoint} if the
+	 *         {@link ChromiumLineBreakpoint} was created from it. Otherwise the
+	 *         original one will be used
+	 */
+	@Override
+	public IMarker getMarker() {
+		return (jsdtMarker != null) ? jsdtMarker : super.getMarker();
+	}
+  
+  
   @Override
   public boolean isEnabled() {
     try {
@@ -92,6 +122,7 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
       return false;
     }
   }
+  
 
   private void setMarkerAttribute(String attributeName, Object value) {
     try {
