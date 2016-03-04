@@ -9,6 +9,7 @@ package org.eclipse.wst.jsdt.chromium.debug.core.model;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.wst.jsdt.chromium.debug.core.ChromiumDebugPlugin;
 
@@ -46,7 +47,10 @@ public class ChromiumBreakpointAdapter {
 		IMarker marker = breakpoint.getMarker();
 		Object line = marker.getAttribute(IMarker.LINE_NUMBER);
 		IResource resource = marker.getResource();
-		return new ChromiumLineBreakpoint(resource, (int) line, VProjectWorkspaceBridge.DEBUG_MODEL_ID);
+		ChromiumLineBreakpoint chromiumLineBreakpoint = new ChromiumLineBreakpoint(resource, (int) line, VProjectWorkspaceBridge.DEBUG_MODEL_ID);
+	    DebugPlugin.getDefault().getBreakpointManager().addBreakpoint(chromiumLineBreakpoint);
+	    DebugPlugin.getDefault().getBreakpointManager().removeBreakpoint(breakpoint, true);
+	    return chromiumLineBreakpoint;
 	}
 
 }
