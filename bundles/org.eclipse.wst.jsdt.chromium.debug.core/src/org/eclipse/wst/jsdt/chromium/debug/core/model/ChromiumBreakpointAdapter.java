@@ -20,6 +20,9 @@ import org.eclipse.wst.jsdt.chromium.debug.core.ChromiumDebugPlugin;
 public class ChromiumBreakpointAdapter {
 	// Bug 486061 - Translate breakpoints from .js files to Chromium / Node V8
 	private static final String JSDT_BREAKPOINT_MODEL_ID = "org.eclipse.wst.jsdt.debug.model"; //$NON-NLS-1$
+	private static final String ADD_BREAKPOINT = "addBreakpoint"; //$NON-NLS-1$
+	private static final String REMOVE_BREAKPOINT = "removeBreakpoint"; //$NON-NLS-1$
+	private static ChromiumLineBreakpoint chromiumLineBreakpoint;
 
 	public static ChromiumLineBreakpoint tryCastBreakpoint(IBreakpoint breakpoint) {
 		if (!supportsBreakpoint(breakpoint)) {
@@ -29,7 +32,7 @@ public class ChromiumBreakpointAdapter {
 			return (ChromiumLineBreakpoint) breakpoint;
 		}
 
-		try {
+		try { 
 			return tryCastJSDTBreakpoint(breakpoint);
 		} catch (CoreException e) {
 			ChromiumDebugPlugin.logError(e.getMessage(), e);
@@ -44,13 +47,32 @@ public class ChromiumBreakpointAdapter {
 	}
 
 	private static ChromiumLineBreakpoint tryCastJSDTBreakpoint(IBreakpoint breakpoint) throws CoreException {
-		IMarker marker = breakpoint.getMarker();
-		Object line = marker.getAttribute(IMarker.LINE_NUMBER);
-		IResource resource = marker.getResource();
-		ChromiumLineBreakpoint chromiumLineBreakpoint = new ChromiumLineBreakpoint(resource, (int) line, VProjectWorkspaceBridge.DEBUG_MODEL_ID);
-	    DebugPlugin.getDefault().getBreakpointManager().addBreakpoint(chromiumLineBreakpoint);
-	    DebugPlugin.getDefault().getBreakpointManager().removeBreakpoint(breakpoint, true);
-	    return chromiumLineBreakpoint;
+		if (checkInvocation(ADD_BREAKPOINT)) {
+			// new breakpoint was added in JSDT editor
+			IMarker marker = breakpoint.getMarker();
+			Object line = marker.getAttribute(IMarker.LINE_NUMBER);
+			IResource resource = marker.getResource();
+			chromiumLineBreakpoint = new ChromiumLineBreakpoint(resource, (int) line,
+					VProjectWorkspaceBridge.DEBUG_MODEL_ID);
+			DebugPlugin.getDefault().getBreakpointManager().addBreakpoint(chromiumLineBreakpoint);
+		} else if (checkInvocation(REMOVE_BREAKPOINT)) {
+			// breakpoint was removed in JSDT editor
+			DebugPlugin.getDefault().getBreakpointManager().removeBreakpoint(chromiumLineBreakpoint, true);
+		}
+		
+		return chromiumLineBreakpoint;
+	}
+	
+	private static boolean checkInvocation(final String methodName) {
+		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+		for (StackTraceElement e : stackTraceElements) {
+			String method = e.getMethodName();
+			System.out.println(method); // TODO: remove this line
+			if (methodName.equals(method)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
