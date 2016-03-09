@@ -34,6 +34,12 @@ public class CLIProcess implements IProcess {
 
 	@Override
 	public void terminate() throws DebugException {
+		try {
+			process.getStreamsProxy().write("\u0003");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (process instanceof RuntimeProcess) {
 			try {
 				ProcessKiller.kill((RuntimeProcess) process);
