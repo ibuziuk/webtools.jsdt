@@ -11,6 +11,7 @@
 package org.eclipse.wst.jsdt.js.cli.core;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,9 +39,11 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
+import org.eclipse.debug.core.model.RuntimeProcess;
 import org.eclipse.wst.jsdt.js.cli.CLIPlugin;
 import org.eclipse.wst.jsdt.js.cli.Messages;
 import org.eclipse.wst.jsdt.js.cli.internal.util.ExternalProcessUtility;
+import org.eclipse.wst.jsdt.js.cli.internal.util.ProcessKiller;
 
 /**
  * Wrapper around CLI. Provides low level 
@@ -102,7 +105,6 @@ public class CLI {
 		Lock lock = projectLock();
 		lock.lock();
 		try {
-			
 			DebugPlugin.getDefault().addDebugEventListener(processTerminateListener);
 			final IStreamsProxy streamProxy = process.getStreamsProxy();
 			streamProxy.write(command.toString());
@@ -118,6 +120,16 @@ public class CLI {
 		} catch (IOException | InterruptedException e) {
 			throw new CoreException(new Status(IStatus.ERROR, CLIPlugin.PLUGIN_ID, Messages.Error_FatalInvokingCLI, e));
 		} finally {
+//			process.terminate();
+//			int exitValue = process.getExitValue();
+//			if (exitValue != 0 && process instanceof RuntimeProcess) {
+//				try {
+//					ProcessKiller.kill((RuntimeProcess) process);
+//				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+//						| InvocationTargetException | NoSuchFieldException | IOException e) {
+//					CLIPlugin.logError(e, e.getMessage());
+//				}
+//			}
 			lock.unlock();
 		}
 	}

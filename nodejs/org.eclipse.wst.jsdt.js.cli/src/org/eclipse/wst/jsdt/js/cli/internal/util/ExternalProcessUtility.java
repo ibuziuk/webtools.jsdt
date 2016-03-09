@@ -24,6 +24,7 @@ import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.wst.jsdt.js.cli.CLIPlugin;
+import org.eclipse.wst.jsdt.js.cli.core.CLIProcess;
 /**
  * Utilities for calling and processing the output from external executables.
  * 
@@ -145,6 +146,8 @@ public class ExternalProcessUtility {
 		Map<String, String> processAttributes = generateProcessAttributes(command, launchConfiguration);
 		Launch launch = new Launch(launchConfiguration, "run", null); //$NON-NLS-1$
 		IProcess prcs = DebugPlugin.newProcess(launch, process, command[0], processAttributes);
+		launch.removeProcess(prcs);
+		launch.addProcess(new CLIProcess(prcs));
 		DebugPlugin.getDefault().getLaunchManager().addLaunch(launch);
 		return prcs;
 	}
