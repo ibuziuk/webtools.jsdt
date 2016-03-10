@@ -6,6 +6,10 @@
 
 package org.eclipse.wst.jsdt.chromium.debug.core.model;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -22,6 +26,7 @@ public class ChromiumBreakpointAdapter {
 	private static final String ADD_BREAKPOINT = "addBreakpoint"; //$NON-NLS-1$
 	private static final String REMOVE_BREAKPOINT = "removeBreakpoint"; //$NON-NLS-1$
 	private static ChromiumLineBreakpoint chromiumLineBreakpoint;
+	private static final Map<IBreakpoint, IBreakpoint> JSDT_CHROMIUM_STORAGE = Collections.synchronizedMap(new HashMap<>());
 
 	public static ChromiumLineBreakpoint tryCastBreakpoint(IBreakpoint breakpoint) {
 		if (!supportsBreakpoint(breakpoint)) {
@@ -49,14 +54,11 @@ public class ChromiumBreakpointAdapter {
 	private static ChromiumLineBreakpoint tryCastJSDTBreakpoint(IBreakpoint breakpoint) throws CoreException {
 		if (checkInvocation(ADD_BREAKPOINT)) {
 			// new breakpoint was added in JSDT editor
-			IMarker marker = breakpoint.getMarker();
-			Object line = marker.getAttribute(IMarker.LINE_NUMBER);
-			IResource resource = marker.getResource();
-			chromiumLineBreakpoint = new ChromiumLineBreakpoint(resource, (int) line,
-					VProjectWorkspaceBridge.DEBUG_MODEL_ID);
+//			IMarker marker = breakpoint.getMarker();
+//			Object line = marker.getAttribute(IMarker.LINE_NUMBER);
+//			IResource resource = marker.getResource();
+			chromiumLineBreakpoint = new ChromiumLineBreakpoint(breakpoint);
 		} else if (checkInvocation(REMOVE_BREAKPOINT)) {
-			// Breakpoint removal works but marker still visible / removing marker breaks breakpoint removal
-//			chromiumLineBreakpoint.getMarker().delete();
 		}
 		
 		return chromiumLineBreakpoint;

@@ -50,6 +50,9 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
 
   /** Condition */
   private static final String CONDITION_ATTR = ChromiumDebugPlugin.PLUGIN_ID + ".condition"; //$NON-NLS-1$
+  
+  /** Using JSDT marker instead if Chromium breakpoint was created from JSDT one **/
+  private IMarker jsdtMarker;
 
   /**
    * Default constructor is required for the breakpoint manager to re-create
@@ -82,7 +85,22 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
     };
     run(getMarkerRule(resource), runnable);
   }
+  
+	ChromiumLineBreakpoint(IBreakpoint breakpoint) {
+		if (breakpoint != null) {
+			this.jsdtMarker = breakpoint.getMarker();
+		}
+	}
 
+	/**
+	 * @return JSDT marker if the Chromium breakpoint was created from JSDT one
+	 */
+	@Override
+	public IMarker getMarker() {
+		return (jsdtMarker != null) ? jsdtMarker : super.getMarker();
+	}
+  
+  
   @Override
   public boolean isEnabled() {
     try {
@@ -92,6 +110,7 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
       return false;
     }
   }
+  
 
   private void setMarkerAttribute(String attributeName, Object value) {
     try {

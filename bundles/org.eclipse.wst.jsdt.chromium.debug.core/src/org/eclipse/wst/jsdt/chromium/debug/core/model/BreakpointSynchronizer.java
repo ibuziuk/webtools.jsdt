@@ -699,7 +699,7 @@ public class BreakpointSynchronizer {
         new ArrayList<ChromiumExceptionBreakpoint>(2);
 
     for (IBreakpoint breakpoint :
-        breakpointManager.getBreakpoints(VProjectWorkspaceBridge.DEBUG_MODEL_ID)) {
+        breakpointManager.getBreakpoints()) {
       {
         ChromiumLineBreakpoint chromiumLineBreakpoint =
             ChromiumBreakpointAdapter.tryCastBreakpoint(breakpoint);
