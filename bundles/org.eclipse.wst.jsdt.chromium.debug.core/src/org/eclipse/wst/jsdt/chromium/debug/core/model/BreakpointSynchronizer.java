@@ -702,7 +702,7 @@ public class BreakpointSynchronizer {
         breakpointManager.getBreakpoints()) {
       {
         ChromiumLineBreakpoint chromiumLineBreakpoint =
-            ChromiumBreakpointAdapter.tryCastBreakpoint(breakpoint);
+            ChromiumBreakpointAdapter.tryCastBreakpointOnAddition(breakpoint);
         if (chromiumLineBreakpoint != null) {
           lineBreakpoints.add(chromiumLineBreakpoint);
           continue;

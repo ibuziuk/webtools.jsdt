@@ -85,7 +85,14 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
     };
     run(getMarkerRule(resource), runnable);
   }
-  
+
+	/**
+	 * Constructor for creating {@link ChromiumLineBreakpoint} from
+	 * {@link JavaScriptBreakpoint} and using it's {@link IMarker}
+	 *
+	 * @param IBreakpoint
+	 *            JSDT Breakpoint
+	 */
 	ChromiumLineBreakpoint(IBreakpoint breakpoint) {
 		if (breakpoint != null) {
 			this.jsdtMarker = breakpoint.getMarker();
@@ -93,7 +100,8 @@ public class ChromiumLineBreakpoint extends LineBreakpoint {
 	}
 
 	/**
-	 * @return JSDT marker if the Chromium breakpoint was created from JSDT one
+	 * @return JSDT marker if the {@link ChromiumLineBreakpoint} was created
+	 *         from JSDT {@link JavaScriptBreakpoint}.
 	 */
 	@Override
 	public IMarker getMarker() {

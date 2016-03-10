@@ -1,20 +1,16 @@
-// Copyright (c) 2010 The Chromium Authors. All rights reserved.
+// Copyright (c) 2010, 2016 The Chromium Authors. All rights reserved.
 // This program and the accompanying materials are made available
 // under the terms of the Eclipse Public License v1.0 which accompanies
 // this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v10.html
+//
 
 package org.eclipse.wst.jsdt.chromium.debug.core.model;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.model.IBreakpoint;
-import org.eclipse.wst.jsdt.chromium.debug.core.ChromiumDebugPlugin;
 
 /**
  * Implements breakpoint adapter for breakpoints provided by
@@ -23,56 +19,52 @@ import org.eclipse.wst.jsdt.chromium.debug.core.ChromiumDebugPlugin;
 public class ChromiumBreakpointAdapter {
 	// Bug 486061 - Translate breakpoints from .js files to Chromium / Node V8
 	private static final String JSDT_BREAKPOINT_MODEL_ID = "org.eclipse.wst.jsdt.debug.model"; //$NON-NLS-1$
-	private static final String ADD_BREAKPOINT = "addBreakpoint"; //$NON-NLS-1$
-	private static final String REMOVE_BREAKPOINT = "removeBreakpoint"; //$NON-NLS-1$
-	private static ChromiumLineBreakpoint chromiumLineBreakpoint;
-	private static final Map<IBreakpoint, IBreakpoint> JSDT_CHROMIUM_STORAGE = Collections.synchronizedMap(new HashMap<>());
+
+	// Storage with mapping of JSDT breakpoint to Chromium Breakpoint
+	private static final Map<IBreakpoint, ChromiumLineBreakpoint> JSDT_TO_CHROMIUM_STORAGE = new HashMap<IBreakpoint, ChromiumLineBreakpoint>();
 
 	public static ChromiumLineBreakpoint tryCastBreakpoint(IBreakpoint breakpoint) {
-		if (!supportsBreakpoint(breakpoint)) {
-			return null;
-		}
-		if (breakpoint instanceof ChromiumLineBreakpoint) {
-			return (ChromiumLineBreakpoint) breakpoint;
+		ChromiumLineBreakpoint chromiumBreakpoint = null;
+		if (isChromiumLineBreakPoint(breakpoint)) {
+			chromiumBreakpoint = (ChromiumLineBreakpoint) breakpoint;
+		} else if (isJSDTBreakpoint(breakpoint)) {
+			chromiumBreakpoint = JSDT_TO_CHROMIUM_STORAGE.get(breakpoint);
 		}
 
-		try { 
-			return tryCastJSDTBreakpoint(breakpoint);
-		} catch (CoreException e) {
-			ChromiumDebugPlugin.logError(e.getMessage(), e);
-		}
-		
-
-		return null;
+		return chromiumBreakpoint;
 	}
 
-	private static boolean supportsBreakpoint(IBreakpoint breakpoint) {
-		String modelId = breakpoint.getModelIdentifier();
-		return (VProjectWorkspaceBridge.DEBUG_MODEL_ID.equals(modelId) || JSDT_BREAKPOINT_MODEL_ID.equals(modelId));
+	public static ChromiumLineBreakpoint tryCastBreakpointOnAddition(IBreakpoint breakpoint) {
+		ChromiumLineBreakpoint chromiumBreakpoint = null;
+		if (isChromiumLineBreakPoint(breakpoint)) {
+			chromiumBreakpoint = (ChromiumLineBreakpoint) breakpoint;
+		} else if (isJSDTBreakpoint(breakpoint)) {
+			chromiumBreakpoint = new ChromiumLineBreakpoint(breakpoint);
+			JSDT_TO_CHROMIUM_STORAGE.put(breakpoint, chromiumBreakpoint);
+		}
+
+		return chromiumBreakpoint;
 	}
 
-	private static ChromiumLineBreakpoint tryCastJSDTBreakpoint(IBreakpoint breakpoint) throws CoreException {
-		if (checkInvocation(ADD_BREAKPOINT)) {
-			// new breakpoint was added in JSDT editor
-//			IMarker marker = breakpoint.getMarker();
-//			Object line = marker.getAttribute(IMarker.LINE_NUMBER);
-//			IResource resource = marker.getResource();
-			chromiumLineBreakpoint = new ChromiumLineBreakpoint(breakpoint);
-		} else if (checkInvocation(REMOVE_BREAKPOINT)) {
+	public static ChromiumLineBreakpoint tryCastBreakpointOnRemoval(IBreakpoint breakpoint) {
+		ChromiumLineBreakpoint chromiumBreakpoint = null;
+		if (isChromiumLineBreakPoint(breakpoint)) {
+			chromiumBreakpoint = (ChromiumLineBreakpoint) breakpoint;
+		} else if (isJSDTBreakpoint(breakpoint)) {
+			chromiumBreakpoint = JSDT_TO_CHROMIUM_STORAGE.get(breakpoint);
+			JSDT_TO_CHROMIUM_STORAGE.remove(breakpoint);
 		}
-		
-		return chromiumLineBreakpoint;
+
+		return chromiumBreakpoint;
 	}
-	
-	private static boolean checkInvocation(final String methodName) {
-		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-		for (StackTraceElement e : stackTraceElements) {
-			String method = e.getMethodName();
-			if (methodName.equals(method)) {
-				return true;
-			}
-		}
-		return false;
+
+	private static boolean isChromiumLineBreakPoint(IBreakpoint breakpoint) {
+		return (breakpoint instanceof ChromiumLineBreakpoint
+				&& VProjectWorkspaceBridge.DEBUG_MODEL_ID.equals(breakpoint.getModelIdentifier()));
+	}
+
+	private static boolean isJSDTBreakpoint(IBreakpoint breakpoint) {
+		return (breakpoint != null && JSDT_BREAKPOINT_MODEL_ID.equals(breakpoint.getModelIdentifier()));
 	}
 
 }
