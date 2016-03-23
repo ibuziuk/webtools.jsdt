@@ -126,14 +126,16 @@ public class JsDebugModelPresentation extends LabelProvider implements IDebugMod
     } else {
       return null;
     }
-
+    
+    return "org.eclipse.wst.jsdt.ui.CompilationUnitEditor";
+    
     // Pick the editor based on the file extension, taking user preferences into account.
-    try {
-      return IDE.getEditorDescriptor(file).getId();
-    } catch (PartInitException e) {
-      // TODO(peter.rybin): should it really be the default case?
-      // There might be no virtual project.
-      return JsEditor.EDITOR_ID;
-    }
+//    try {
+//      return IDE.getEditorDescriptor(file).getId();
+//    } catch (PartInitException e) {
+//      // TODO(peter.rybin): should it really be the default case?
+//      // There might be no virtual project.
+//      return JsEditor.EDITOR_ID;
+//    }
   }
 }

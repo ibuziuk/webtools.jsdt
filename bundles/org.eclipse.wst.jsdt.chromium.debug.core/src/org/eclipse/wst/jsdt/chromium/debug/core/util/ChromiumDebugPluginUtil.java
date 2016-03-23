@@ -141,6 +141,7 @@ public class ChromiumDebugPluginUtil {
 
       project.create(description, null);
       project.open(null);
+//      project.setHidden(true);
 
       return project;
     } catch (CoreException e) {

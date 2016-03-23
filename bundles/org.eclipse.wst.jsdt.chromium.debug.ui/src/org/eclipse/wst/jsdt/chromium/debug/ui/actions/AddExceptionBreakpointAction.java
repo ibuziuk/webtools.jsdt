@@ -46,15 +46,15 @@ public class AddExceptionBreakpointAction implements IWorkbenchWindowActionDeleg
     return new Performer() {
       @Override
       void run() {
-        IResource resource = ResourcesPlugin.getWorkspace().getRoot();
-        boolean includingCaught = true;
-        try {
-          ChromiumExceptionBreakpoint exceptionBreakpoint = new ChromiumExceptionBreakpoint(
-              resource, includingCaught, VProjectWorkspaceBridge.DEBUG_MODEL_ID);
-          breakpointManager.addBreakpoint(exceptionBreakpoint);
-        } catch (CoreException e) {
-          throw new RuntimeException(e);
-        }
+//        IResource resource = ResourcesPlugin.getWorkspace().getRoot();
+//        boolean includingCaught = true;
+//        try {
+//          ChromiumExceptionBreakpoint exceptionBreakpoint = new ChromiumExceptionBreakpoint(
+//              resource, includingCaught, VProjectWorkspaceBridge.DEBUG_MODEL_ID);
+//          breakpointManager.addBreakpoint(exceptionBreakpoint);
+//        } catch (CoreException e) {
+//          throw new RuntimeException(e);
+//        }
       }
     };
   }

@@ -223,7 +223,7 @@ public class TemporarilyFormatSourceAction
       IEditorInput input =
           JsDebugModelPresentation.toEditorInput(formattedResource.getVProjectFile());
       try {
-        workbenchWindow.getActivePage().openEditor(input, JsEditor.EDITOR_ID);
+        workbenchWindow.getActivePage().openEditor(input, /*JsEditor.EDITOR_ID*/ "org.eclipse.wst.jsdt.ui.CompilationUnitEditor");
       } catch (PartInitException e) {
         throw new RuntimeException(e);
       }
