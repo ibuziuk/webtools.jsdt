@@ -104,7 +104,7 @@ public class ChromiumDebugPluginUtil {
    * @param projectNameBase project name template
    * @return the newly created project, or {@code null} if the creation failed
    */
-  public static IProject createEmptyProject(String projectNameBase) {
+  public static IProject createEmptyProject(String projectNameBase, boolean hideVirtualProject) {
     ProjectCheckData projectProject;
     try {
       for (int uniqueNumber = 0; ; uniqueNumber++) {
@@ -140,6 +140,7 @@ public class ChromiumDebugPluginUtil {
     try {
 
       project.create(description, null);
+      project.setHidden(hideVirtualProject);
       project.open(null);
 
       return project;

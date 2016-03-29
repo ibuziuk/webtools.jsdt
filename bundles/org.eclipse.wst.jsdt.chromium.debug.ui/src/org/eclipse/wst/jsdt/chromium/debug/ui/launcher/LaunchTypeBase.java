@@ -60,10 +60,13 @@ public abstract class LaunchTypeBase implements ILaunchConfigurationDelegate {
 
     boolean addNetworkConsole = config.getAttribute(LaunchParams.ADD_NETWORK_CONSOLE, false);
 
+    boolean hideVirtualFileSystem = config.getAttribute(LaunchParams.HIDE_VIRTUAL_FILE_SYSTEM, true);
+    
+   
     SourceWrapSupport sourceWrapSupport = createSourceWrapSupportFromConfig(config);
 
     JavascriptVmEmbedder.ConnectionToRemote remoteServer =
-        createConnectionToRemote(host, port, launch, addNetworkConsole);
+        createConnectionToRemote(host, port, launch, addNetworkConsole, hideVirtualFileSystem);
     try {
 
       final String projectNameBase = config.getName();
@@ -81,7 +84,7 @@ public abstract class LaunchTypeBase implements ILaunchConfigurationDelegate {
         destructingGuard.addValue(lauchDestructor);
 
         WorkspaceBridge.Factory bridgeFactory =
-            new VProjectWorkspaceBridge.FactoryImpl(projectNameBase);
+            new VProjectWorkspaceBridge.FactoryImpl(projectNameBase, hideVirtualFileSystem);
 
         final DebugTargetImpl target =
             new DebugTargetImpl(launch, bridgeFactory, sourceWrapSupport, getPresetSyncDirection());
@@ -117,7 +120,7 @@ public abstract class LaunchTypeBase implements ILaunchConfigurationDelegate {
   }
 
   protected abstract JavascriptVmEmbedder.ConnectionToRemote createConnectionToRemote(String host,
-      int port, ILaunch launch, boolean addConsoleLogger) throws CoreException;
+      int port, ILaunch launch, boolean addConsoleLogger, boolean hideVirtualFileSystem) throws CoreException;
 
   protected abstract Direction getPresetSyncDirection();
 

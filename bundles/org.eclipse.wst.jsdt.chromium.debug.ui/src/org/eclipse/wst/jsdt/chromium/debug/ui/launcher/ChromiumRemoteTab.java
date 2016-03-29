@@ -58,6 +58,9 @@ public abstract class ChromiumRemoteTab<ELEMENTS> extends TabBase<ELEMENTS, Para
   private static final String PORT_FIELD_NAME = "port_field"; //$NON-NLS-1$
   private static final String ADD_NETWORK_CONSOLE_FIELD_NAME =
       "add_network_console_field"; //$NON-NLS-1$
+  private static final String HIDE_VIRTUAL_FILE_SYSTEM =
+	      "hide_virtual_file_system"; //$NON-NLS-1$
+
 
    // However, recommended range is [1024, 32767].
   private static final int minimumPortValue = 0;
@@ -111,6 +114,7 @@ public abstract class ChromiumRemoteTab<ELEMENTS> extends TabBase<ELEMENTS, Para
     final StringFieldEditor debugHost;
     final IntegerFieldEditor debugPort;
     final BooleanFieldEditor addNetworkConsole;
+    final BooleanFieldEditor hideVirtualFileSystem;
     {
       Group connectionGroup = new Group(composite, 0);
       connectionGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -138,12 +142,20 @@ public abstract class ChromiumRemoteTab<ELEMENTS> extends TabBase<ELEMENTS, Para
           Messages.ChromiumRemoteTab_PortLabel, propertiesComp);
       debugPort.setPropertyChangeListener(propertyModifyListener);
       debugPort.setPreferenceStore(store);
-
+      
+      // Network console
       addNetworkConsole =
           new BooleanFieldEditor(ADD_NETWORK_CONSOLE_FIELD_NAME,
               Messages.ChromiumRemoteTab_ShowDebuggerNetworkCommunication, propertiesComp);
       addNetworkConsole.setPreferenceStore(store);
       addNetworkConsole.setPropertyChangeListener(propertyModifyListener);
+      
+      // hide virual file system
+      hideVirtualFileSystem =
+          new BooleanFieldEditor(HIDE_VIRTUAL_FILE_SYSTEM,
+              Messages.ChromiumRemoteTab_HideVirtualFileSystem, propertiesComp);
+      hideVirtualFileSystem.setPreferenceStore(store);
+      hideVirtualFileSystem.setPropertyChangeListener(propertyModifyListener);
     }
 
     return new TabElements() {

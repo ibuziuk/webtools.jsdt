@@ -23,6 +23,8 @@ public class Messages extends NLS {
 
   public static String ChromiumRemoteTab_ShowDebuggerNetworkCommunication;
 
+  public static String ChromiumRemoteTab_HideVirtualFileSystem;
+  
   public static String ChromiumRemoteTab_PortLabel;
 
   public static String ChromiumRemoteTab_HostLabel;

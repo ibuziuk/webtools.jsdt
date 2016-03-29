@@ -53,15 +53,17 @@ public class VProjectWorkspaceBridge implements WorkspaceBridge {
 
   public static class FactoryImpl implements Factory {
     private final String projectNameBase;
+    private final boolean hideVirtualProject;
 
-    public FactoryImpl(String projectNameBase) {
+    public FactoryImpl(String projectNameBase, boolean hideVirtualProject) {
       this.projectNameBase = projectNameBase;
+      this.hideVirtualProject = hideVirtualProject;
     }
 
     public WorkspaceBridge attachedToVm(ConnectedTargetData connectedTargetData,
         JavascriptVm javascriptVm) {
       // We might want to add URL or something to project name.
-      return new VProjectWorkspaceBridge(projectNameBase, connectedTargetData, javascriptVm);
+      return new VProjectWorkspaceBridge(projectNameBase, connectedTargetData, javascriptVm, hideVirtualProject);
     }
 
     public String getDebugModelIdentifier() {
@@ -80,10 +82,10 @@ public class VProjectWorkspaceBridge implements WorkspaceBridge {
   private final ChromiumSourceDirector sourceDirector;
 
   public VProjectWorkspaceBridge(String projectName, ConnectedTargetData connectedTargetData,
-      JavascriptVm javascriptVm) {
+      JavascriptVm javascriptVm, boolean hideVirtualProject) {
     this.connectedTargetData = connectedTargetData;
     this.javascriptVm = javascriptVm;
-    this.debugProject = ChromiumDebugPluginUtil.createEmptyProject(projectName);
+    this.debugProject = ChromiumDebugPluginUtil.createEmptyProject(projectName, hideVirtualProject);
     this.resourceManager = new ResourceManager(debugProject);
 
     ILaunch launch = connectedTargetData.getDebugTarget().getLaunch();

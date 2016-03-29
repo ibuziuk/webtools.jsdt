@@ -23,7 +23,7 @@ import org.eclipse.wst.jsdt.chromium.wip.eclipse.BackendRegistry;
 public class WipLaunchType extends LaunchTypeBase {
   @Override
   protected ConnectionToRemote createConnectionToRemote(String host, int port,
-      final ILaunch launch, boolean addConsoleLogger) throws CoreException {
+      final ILaunch launch, boolean addConsoleLogger, boolean hideVirtualFileSys) throws CoreException {
 
     ILaunchConfiguration config = launch.getLaunchConfiguration();
     String wipBackendId = config.getAttribute(LaunchParams.WIP_BACKEND_ID, (String) null);

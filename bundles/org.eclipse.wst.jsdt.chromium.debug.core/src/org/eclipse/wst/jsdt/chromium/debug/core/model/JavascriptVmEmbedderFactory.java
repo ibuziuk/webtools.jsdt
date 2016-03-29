@@ -189,7 +189,7 @@ public class JavascriptVmEmbedderFactory {
   }
 
   public static JavascriptVmEmbedder.ConnectionToRemote connectToStandalone(String host, int port,
-      NamedConnectionLoggerFactory connectionLoggerFactory) {
+      NamedConnectionLoggerFactory connectionLoggerFactory, boolean hideVirtualFileSys) {
     SocketAddress address = new InetSocketAddress(host, port);
     ConnectionLogger connectionLogger =
       connectionLoggerFactory.createLogger(address.toString());
