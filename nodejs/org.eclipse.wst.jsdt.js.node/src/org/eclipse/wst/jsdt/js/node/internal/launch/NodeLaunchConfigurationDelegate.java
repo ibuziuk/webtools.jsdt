@@ -120,6 +120,9 @@ public class NodeLaunchConfigurationDelegate extends LaunchConfigurationDelegate
 						.getAttribute(NodeConstants.ATTR_PORT_FIELD, String.valueOf(NodeConstants.DEFAULT_PORT))));
 				workingCopy.setAttribute(LaunchParams.ADD_NETWORK_CONSOLE,
 						configuration.getAttribute(NodeConstants.ATTR_ADD_NETWORK_CONSOLE_FIELD, false));
+				workingCopy.setAttribute(LaunchParams.BREAKPOINT_SYNC_DIRECTION, "MERGE");
+				workingCopy.setAttribute(LaunchParams.SOURCE_LOOKUP_MODE, "AUTO_DETECT");
+				
 				ILaunchConfiguration chromiumConfiguration = workingCopy;
 
 				monitor.subTask(Messages.LAUNCH_CONFIGURATION_DELEGATE_CHROMIUM_DEBUGGER_DELAY_TASK);
