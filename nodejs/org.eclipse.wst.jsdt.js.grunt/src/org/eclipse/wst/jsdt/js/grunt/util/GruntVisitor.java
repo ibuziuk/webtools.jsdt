@@ -8,7 +8,7 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.grunt.internal.util;
+package org.eclipse.wst.jsdt.js.grunt.util;
 
 import java.util.HashSet;
 import java.util.List;

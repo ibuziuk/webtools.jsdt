@@ -8,7 +8,7 @@
  * 	Contributors:
  * 		 Red Hat Inc. - initial API and implementation and/or initial documentation
  *******************************************************************************/
-package org.eclipse.wst.jsdt.js.gulp.internal.util;
+package org.eclipse.wst.jsdt.js.gulp.util;
 
 import java.util.HashSet;
 import java.util.List;
