@@ -14,11 +14,11 @@
          point="org.eclipse.debug.ui.launchShortcuts">
      	 <shortcut
             class="org.eclipse.wst.jsdt.js.node.internal.launch.shortcut.NodeLaunch"
-            description="Node"
+            description="Node.js Application"
             helpContextId="org.eclipse.ui.externaltools.launchShortcutHelpContext.NodeShortcut"
-            icon="icons/transparent.gif"
+            icon="icons/node_16.png"
             id="org.eclipse.wst.jsdt.js.node.internal.launch.shortcut.NodeLaunch"
-            label="Node"
+            label="Node.js Application"
             modes="run,debug">
            <contextualLaunch>   
               <enablement>   
@@ -51,7 +51,7 @@
           id="org.eclipse.wst.jsdt.js.node.NodeLaunchConfigurationType"
           delegate="org.eclipse.wst.jsdt.js.node.internal.launch.NodeLaunchConfigurationDelegate"
           modes="run,debug"
-          name="Node">
+          name="Node.js">
     </launchConfigurationType>
   </extension>
   
@@ -59,7 +59,7 @@
        point="org.eclipse.debug.ui.launchConfigurationTypeImages">
     <launchConfigurationTypeImage
           configTypeID="org.eclipse.wst.jsdt.js.node.NodeLaunchConfigurationType"
-          icon="icons/transparent.gif"
+          icon="icons/node_16.png"
           id="org.eclipse.wst.jsdt.js.NodeLaunchConfigurationTypeImage">
     </launchConfigurationTypeImage>
   </extension>
