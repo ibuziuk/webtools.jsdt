@@ -12,13 +12,20 @@ package org.eclipse.wst.jsdt.chromium.debug.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.sourcelookup.ISourceContainer;
 import org.eclipse.debug.core.sourcelookup.ISourcePathComputerDelegate;
+import org.eclipse.debug.core.sourcelookup.containers.ContainerSourceContainer;
+import org.eclipse.debug.core.sourcelookup.containers.FolderSourceContainer;
 import org.eclipse.debug.core.sourcelookup.containers.ProjectSourceContainer;
 import org.eclipse.wst.jsdt.chromium.debug.core.model.LaunchParams;
 
@@ -33,13 +40,21 @@ public class ChromiumSourceComputer implements ISourcePathComputerDelegate {
 		List<ISourceContainer> containers = new ArrayList<ISourceContainer>();
 
 		String projectName = configuration.getAttribute(LaunchParams.ATTR_APP_PROJECT, (String) null);
-		if (projectName != null) {
+		String path = configuration.getAttribute(LaunchParams.ATTR_APP_PROJECT_RELATIVE_PATH, (String) null);
+		
+		if (projectName != null && path != null) {
 			IProject project = getProject(projectName);
 			if (project != null && project.isAccessible()) {
-				String path = project.getLocation().toOSString();
-				// {@link SourceNameMapperContainer} for projects available in the workspace
-				SourceNameMapperContainer workspaceConatiner = createWorkspaceSourceContainer(project, path);
-				containers.add(workspaceConatiner);
+				IPath resourcePath = new Path(path);
+				IResource resource = project.getFile(resourcePath);
+				if (resource.isAccessible()) {
+					IContainer container = resource.getParent();
+					String mapping = container.getLocation().toOSString();
+					// String path = project. getLocation().toOSString();
+					// {@link SourceNameMapperContainer} for projects available in the workspace
+					SourceNameMapperContainer workspaceConatiner = createWorkspaceSourceContainer(container, mapping);
+					containers.add(workspaceConatiner);
+				}
 			}
 		}
 
@@ -54,10 +69,16 @@ public class ChromiumSourceComputer implements ISourcePathComputerDelegate {
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(name);
 	}
 
-	private SourceNameMapperContainer createWorkspaceSourceContainer(IProject project, String path) {
+	private SourceNameMapperContainer createWorkspaceSourceContainer(IContainer container, String path) {
 		// Using absolute path as a mapping prefix for project
-		return new SourceNameMapperContainer(path + System.getProperty("file.separator"), //$NON-NLS-1$
-				new ProjectSourceContainer(project, true));
-	}
+		ContainerSourceContainer sourceContainer = null;
+		if (container instanceof IProject) {
+			sourceContainer = new ProjectSourceContainer((IProject) container, true);
+		} else if (container instanceof IFolder) {
+			sourceContainer = new FolderSourceContainer((IFolder) container, true);
+		}
 
+		return new SourceNameMapperContainer(path + System.getProperty("file.separator"), //$NON-NLS-1$
+				sourceContainer);
+	}
 }
