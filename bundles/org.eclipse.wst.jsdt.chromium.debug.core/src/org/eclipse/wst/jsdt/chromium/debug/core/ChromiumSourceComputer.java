@@ -53,6 +53,7 @@ public class ChromiumSourceComputer implements ISourcePathComputerDelegate {
 					// {@link SourceNameMapperContainer} for projects available in the workspace
 					SourceNameMapperContainer workspaceConatiner = createWorkspaceSourceContainer(container, mapping);
 					containers.add(workspaceConatiner);
+					processSubFolders(container, containers);
 				}
 			}
 		}
@@ -64,6 +65,20 @@ public class ChromiumSourceComputer implements ISourcePathComputerDelegate {
 		return containers.toArray(new ISourceContainer[containers.size()]);
 	}
 
+	private void processSubFolders(IContainer container, List<ISourceContainer> containers) throws CoreException {
+		IResource[] members = container.members();
+		for (IResource member : members) {
+			if (member instanceof IContainer) {
+				IContainer subFolder = (IContainer) member;
+				String mapping = subFolder.getLocation().toOSString();
+				// {@link SourceNameMapperContainer} for projects available in the workspace
+				SourceNameMapperContainer workspaceConatiner = createWorkspaceSourceContainer(subFolder, mapping);
+				containers.add(workspaceConatiner);
+				processSubFolders(subFolder, containers);
+			}
+		}
+	}
+
 	private IProject getProject(String name) {
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(name);
 	}
@@ -71,9 +86,9 @@ public class ChromiumSourceComputer implements ISourcePathComputerDelegate {
 	private SourceNameMapperContainer createWorkspaceSourceContainer(IContainer container, String path) {
 		ContainerSourceContainer sourceContainer = null;
 		if (container instanceof IProject) {
-			sourceContainer = new ProjectSourceContainer((IProject) container, true);
+			sourceContainer = new ProjectSourceContainer((IProject) container, false);
 		} else if (container instanceof IFolder) {
-			sourceContainer = new FolderSourceContainer((IFolder) container, true);
+			sourceContainer = new FolderSourceContainer((IFolder) container, false);
 		}
 
 		// Using absolute path as a mapping prefix for project
