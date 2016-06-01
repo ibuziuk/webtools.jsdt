@@ -1,4 +1,4 @@
-// Copyright (c) 2010 The Chromium Authors. All rights reserved.
+// Copyright (c) 2010, 2016 The Chromium Authors. All rights reserved.
 // This program and the accompanying materials are made available
 // under the terms of the Eclipse Public License v1.0 which accompanies
 // this distribution, and is available at
@@ -73,6 +73,12 @@ public class BaseCommandProcessor<SEQ_KEY, OUTGOING, INCOMING, INCOMING_WITH_SEQ
     }
     try {
       handler.send(message, isImmediate);
+    } catch (IllegalStateException e) {
+      if (callbackAdded) {
+        callbackMap.remove(seq);
+      }
+      // Bug 494731 - Exception when debugging with chromium
+      LOGGER.log(Level.WARNING, e.getMessage(), e);
     } catch (RuntimeException e) {
       if (callbackAdded) {
         callbackMap.remove(seq);
