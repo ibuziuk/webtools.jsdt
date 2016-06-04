@@ -290,7 +290,8 @@ public class DebugSession {
 
   public void maybeRethrowContextException(ContextDismissedCheckedException e) {
     // TODO(peter.rybin): make some kind of option out of this
-    final boolean strictPolicy = true;
+    // Disabling strict policy ^
+    final boolean strictPolicy = false;
     if (strictPolicy) {
       throw new InvalidContextException(e);
     }
