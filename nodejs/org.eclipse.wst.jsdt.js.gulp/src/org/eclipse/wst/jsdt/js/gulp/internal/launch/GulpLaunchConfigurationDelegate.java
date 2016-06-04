@@ -46,6 +46,7 @@ public class GulpLaunchConfigurationDelegate implements ILaunchConfigurationDele
 
 	private void launchGulp(IProject project, IPath dir, CLICommand command, IProgressMonitor monitor) {
 		try {
+			WorkbenchResourceUtil.showConsoleView();
 			new CLI(project, dir, command).execute(monitor);
 		} catch (CoreException e) {
 			GulpPlugin.logError(e);

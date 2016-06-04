@@ -45,7 +45,8 @@ public class BowerLaunchConfigurationDelegate implements ILaunchConfigurationDel
 	
 	private void launchBower(IProject project, IPath dir, CLICommand command, IProgressMonitor monitor) {
 		try {
-			 new CLI(project, dir, command).execute(monitor);
+			WorkbenchResourceUtil.showConsoleView();
+			new CLI(project, dir, command).execute(monitor);
 		} catch (CoreException e) {
 			BowerPlugin.logError(e);
 		}

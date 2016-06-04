@@ -46,6 +46,7 @@ public class GruntLaunchConfigurationDelegate implements ILaunchConfigurationDel
 
 	private void launchGrunt(IProject project, IPath dir, CLICommand command, IProgressMonitor monitor) {
 		try {
+			WorkbenchResourceUtil.showConsoleView();
 			new CLI(project, dir, command).execute(monitor);
 		} catch (CoreException e) {
 			GruntPlugin.logError(e);
