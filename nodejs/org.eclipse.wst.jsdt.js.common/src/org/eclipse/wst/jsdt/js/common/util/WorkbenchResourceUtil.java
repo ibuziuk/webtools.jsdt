@@ -152,14 +152,23 @@ public final class WorkbenchResourceUtil {
 		return absoluteLocation;
 	}
 
-	public static void showConsoleView() throws PartInitException {
-		IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (activeWorkbenchWindow != null) {
-			IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
-			if (activePage != null) {
-				activePage.showView(IConsoleConstants.ID_CONSOLE_VIEW);
+	public static void showConsoleView() {
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				if (activeWorkbenchWindow != null) {
+					IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+					if (activePage != null) {
+						try {
+							activePage.showView(IConsoleConstants.ID_CONSOLE_VIEW);
+						} catch (PartInitException e) {
+							CommonPlugin.logError(e);
+						}
+					}
+				}
 			}
-		}
+		});
 	}
 	
 	public static IFile findFileRecursively(IContainer container, String name) throws CoreException {
