@@ -18,5 +18,5 @@ public class WipParserAccess {
     return PARSER;
   }
 
-  private static final WipProtocolParser PARSER = WipDynamicParser.create().getParserRoot();
+  private static final WipProtocolParser PARSER = new GeneratedWipProtocolParser();
 }
