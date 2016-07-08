@@ -2085,7 +2085,8 @@ class Generator {
     "Network",
     "Console",
     "DOM",
-    "Security"
+    "Security",
+    "Emulation"
   };
 
   private static void initializeKnownTypes(TypeMap typeMap) {

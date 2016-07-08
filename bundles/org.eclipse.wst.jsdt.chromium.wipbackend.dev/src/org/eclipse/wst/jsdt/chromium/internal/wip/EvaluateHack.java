@@ -210,7 +210,7 @@ public class EvaluateHack {
             arguments = additionalObjectIds;
           }
           return new CallFunctionOnParams(thisObjectIdFinal, functionText, arguments, null, true,
-              null);
+              null, objectInjected);
         }
 
         @Override
@@ -268,7 +268,7 @@ public class EvaluateHack {
       String script = "delete " + GLOBAL_VARIABLE_NAME + ".data." + dataId + ";";
       String deleteDataExpression = "(function() {" + script +"})()";
       EvaluateParams evaluateParams =
-          new EvaluateParams(deleteDataExpression, null, null, null, null, true, null);
+          new EvaluateParams(deleteDataExpression, null, null, null, null, true, null, objectInjected);
       tabImpl.getCommandProcessor().send(evaluateParams, (WipCommandCallback) null, null);
     }
 
@@ -284,7 +284,7 @@ public class EvaluateHack {
         public WipParamsWithResponse<CallFunctionOnData> getParams() {
           String functionText = "function() { return String(this.message); }";
           return new CallFunctionOnParams(remoteObjectValue.objectId(), functionText, null, null,
-              true, null);
+              true, null, objectInjected);
         }
 
         @Override
@@ -326,7 +326,7 @@ public class EvaluateHack {
         " ; })()";
 
     EvaluateParams evaluateParams = new EvaluateParams(expression, null, false, null, null, true,
-        null);
+        null, objectInjected);
 
     GenericCallback<EvaluateData> wrappedCallback = new GenericCallback<EvaluateData>() {
       @Override

@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.console;
 
@@ -70,13 +70,7 @@ public interface ConsoleMessageValue {
    JavaScript stack trace for assertions and error messages.
    */
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
-  java.util.List<org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.console.CallFrameValue>/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.console.StackTraceTypedef*/ stackTrace();
-
-  /**
-   Asynchronous JavaScript stack trace that preceded this message, if available.
-   */
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.console.AsyncStackTraceValue asyncStackTrace();
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.StackTraceValue stack();
 
   /**
    Identifier of the network request associated with this message.

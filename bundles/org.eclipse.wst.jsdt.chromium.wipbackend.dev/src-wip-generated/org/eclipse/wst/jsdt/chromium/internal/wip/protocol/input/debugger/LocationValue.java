@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger;
 
@@ -12,7 +12,7 @@ public interface LocationValue {
   /**
    Script identifier as reported in the <code>Debugger.scriptParsed</code>.
    */
-  String/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.debugger.ScriptIdTypedef*/ scriptId();
+  String/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.runtime.ScriptIdTypedef*/ scriptId();
 
   /**
    Line number in the script (0-based).

@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.debugger;
 
@@ -14,7 +14,7 @@ public class SearchInContentParams extends org.eclipse.wst.jsdt.chromium.interna
    @param caseSensitiveOpt If true, search is case sensitive.
    @param isRegexOpt If true, treats string parameter as regex.
    */
-  public SearchInContentParams(String/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.debugger.ScriptIdTypedef*/ scriptId, String query, Boolean caseSensitiveOpt, Boolean isRegexOpt) {
+  public SearchInContentParams(String/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.runtime.ScriptIdTypedef*/ scriptId, String query, Boolean caseSensitiveOpt, Boolean isRegexOpt) {
     this.put("scriptId", scriptId);
     this.put("query", query);
     if (caseSensitiveOpt != null) {

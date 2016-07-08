@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input;
 
@@ -16,19 +16,10 @@ public interface WipGeneratedParserRoot {
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.console.MessagesClearedEventData parseConsoleMessagesClearedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.AsyncOperationCompletedEventData parseDebuggerAsyncOperationCompletedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.AsyncOperationStartedEventData parseDebuggerAsyncOperationStartedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.BreakpointResolvedEventData parseDebuggerBreakpointResolvedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.CanSetScriptSourceData parseDebuggerCanSetScriptSourceData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.CompileScriptData parseDebuggerCompileScriptData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.EvaluateOnCallFrameData parseDebuggerEvaluateOnCallFrameData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
@@ -46,31 +37,16 @@ public interface WipGeneratedParserRoot {
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.GetGeneratorObjectDetailsData parseDebuggerGetGeneratorObjectDetailsData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.GetPromiseByIdData parseDebuggerGetPromiseByIdData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.GetScriptSourceData parseDebuggerGetScriptSourceData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.GetStepInPositionsData parseDebuggerGetStepInPositionsData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.GlobalObjectClearedEventData parseDebuggerGlobalObjectClearedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.PausedEventData parseDebuggerPausedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.PromiseUpdatedEventData parseDebuggerPromiseUpdatedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.RestartFrameData parseDebuggerRestartFrameData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.ResumedEventData parseDebuggerResumedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.RunScriptData parseDebuggerRunScriptData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.ScriptFailedToParseEventData parseDebuggerScriptFailedToParseEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
@@ -151,6 +127,9 @@ public interface WipGeneratedParserRoot {
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.dom.MoveToData parseDOMMoveToData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.dom.NodeHighlightRequestedEventData parseDOMNodeHighlightRequestedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
+
+  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.dom.PerformSearchData parseDOMPerformSearchData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
@@ -188,6 +167,9 @@ public interface WipGeneratedParserRoot {
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.dom.ShadowRootPushedEventData parseDOMShadowRootPushedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
+
+  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.emulation.CanEmulateData parseEmulationCanEmulateData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.network.CanClearBrowserCacheData parseNetworkCanClearBrowserCacheData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
@@ -251,9 +233,6 @@ public interface WipGeneratedParserRoot {
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.page.AddScriptToEvaluateOnLoadData parsePageAddScriptToEvaluateOnLoadData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
-
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.page.CanScreencastData parsePageCanScreencastData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.page.CaptureScreenshotData parsePageCaptureScreenshotData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
@@ -331,6 +310,9 @@ public interface WipGeneratedParserRoot {
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.CallFunctionOnData parseRuntimeCallFunctionOnData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.CompileScriptData parseRuntimeCompileScriptData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
+
+  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.EvaluateData parseRuntimeEvaluateData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
@@ -346,7 +328,10 @@ public interface WipGeneratedParserRoot {
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.GetPropertiesData parseRuntimeGetPropertiesData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.IsRunRequiredData parseRuntimeIsRunRequiredData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.InspectRequestedEventData parseRuntimeInspectRequestedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
+
+  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.RunScriptData parseRuntimeRunScriptData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;
 
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonParseMethod
   org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.security.SecurityStateChangedEventData parseSecuritySecurityStateChangedEventData(org.json.simple.JSONObject obj) throws org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonProtocolParseException;

@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,7 +97,10 @@ public class WipProtocolGeneratorMain {
     }
     reader.close();
     stream.close();
-    final String resultString = result.toString();
+    
+    byte[] decode = Base64.getDecoder().decode(result.toString());
+    
+    final String resultString = new String(decode, "utf-8"); //$NON-NLS-1$
 
     return new JsonModelData() {
       @Override public String getOriginReference() {
@@ -171,5 +175,5 @@ public class WipProtocolGeneratorMain {
 
   // Additional URL syntax for a specific revision is ".../blink/!svn/bc/NNNNN/trunk/..."
   private static final ModelResourceLocation JSON_MODEL_FILE_URL = new RemoteSvnLocation(
-      "http://src.chromium.org/blink/trunk/Source/devtools/protocol.json");
+      "https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT"); //$NON-NLS-1$
 }

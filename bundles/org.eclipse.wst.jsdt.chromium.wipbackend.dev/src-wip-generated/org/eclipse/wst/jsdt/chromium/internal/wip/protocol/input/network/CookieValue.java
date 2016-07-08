@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.network;
 
@@ -54,4 +54,17 @@ public interface CookieValue {
    */
   boolean session();
 
+  /**
+   Represents the cookies' 'SameSite' status: https://tools.ietf.org/html/draft-west-first-party-cookies
+   */
+  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
+  SameSite sameSite();
+
+  /**
+   Represents the cookies' 'SameSite' status: https://tools.ietf.org/html/draft-west-first-party-cookies
+   */
+  public enum SameSite {
+    STRICT,
+    LAX,
+  }
 }

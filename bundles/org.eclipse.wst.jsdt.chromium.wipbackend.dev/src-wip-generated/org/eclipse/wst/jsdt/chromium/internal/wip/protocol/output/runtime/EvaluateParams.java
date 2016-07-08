@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.runtime;
 
@@ -16,8 +16,9 @@ public class EvaluateParams extends org.eclipse.wst.jsdt.chromium.internal.wip.p
    @param contextIdOpt Specifies in which isolated context to perform evaluation. Each content script lives in an isolated context and this parameter may be used to specify one of those contexts. If the parameter is omitted or 0 the evaluation will be performed in the context of the inspected page.
    @param returnByValueOpt Whether the result is expected to be a JSON object that should be sent by value.
    @param generatePreviewOpt Whether preview should be generated for the result.
+   @param userGestureOpt Whether execution should be treated as initiated by user in the UI.
    */
-  public EvaluateParams(String expression, String objectGroupOpt, Boolean includeCommandLineAPIOpt, Boolean doNotPauseOnExceptionsAndMuteConsoleOpt, Long/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.runtime.ExecutionContextIdTypedef*/ contextIdOpt, Boolean returnByValueOpt, Boolean generatePreviewOpt) {
+  public EvaluateParams(String expression, String objectGroupOpt, Boolean includeCommandLineAPIOpt, Boolean doNotPauseOnExceptionsAndMuteConsoleOpt, Long/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.runtime.ExecutionContextIdTypedef*/ contextIdOpt, Boolean returnByValueOpt, Boolean generatePreviewOpt, Boolean userGestureOpt) {
     this.put("expression", expression);
     if (objectGroupOpt != null) {
       this.put("objectGroup", objectGroupOpt);
@@ -36,6 +37,9 @@ public class EvaluateParams extends org.eclipse.wst.jsdt.chromium.internal.wip.p
     }
     if (generatePreviewOpt != null) {
       this.put("generatePreview", generatePreviewOpt);
+    }
+    if (userGestureOpt != null) {
+      this.put("userGesture", userGestureOpt);
     }
   }
 

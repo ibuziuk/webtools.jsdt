@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.network;
 
@@ -10,7 +10,7 @@ package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.network;
 @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonType
 public interface SecurityDetailsValue {
   /**
-   Protocol name (e.g. "TLS 1.2" or "QUIC".
+   Protocol name (e.g. "TLS 1.2" or "QUIC").
    */
   String protocol();
 
@@ -34,5 +34,11 @@ public interface SecurityDetailsValue {
    Certificate ID value.
    */
   long/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.network.CertificateIdTypedef*/ certificateId();
+
+  /**
+   Validation details for the request's certficate.
+   */
+  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.network.CertificateValidationDetailsValue certificateValidationDetails();
 
 }

@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.page;
 
@@ -22,8 +22,7 @@ public interface ScreencastFrameEventData {
   /**
    Frame number.
    */
-  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
-  Long frameNumber();
+  long sessionId();
 
   public static final org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.WipEventType<org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.page.ScreencastFrameEventData> TYPE
       = new org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.WipEventType<org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.page.ScreencastFrameEventData>("Page.screencastFrame", org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.page.ScreencastFrameEventData.class) {

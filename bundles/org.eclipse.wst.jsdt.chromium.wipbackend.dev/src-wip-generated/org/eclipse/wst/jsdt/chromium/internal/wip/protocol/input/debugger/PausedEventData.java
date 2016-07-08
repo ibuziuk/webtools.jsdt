@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger;
 
@@ -35,7 +35,7 @@ public interface PausedEventData {
    Async stack trace, if any.
    */
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
-  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.StackTraceValue asyncStackTrace();
+  org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.runtime.StackTraceValue asyncStackTrace();
 
   public static final org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.WipEventType<org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.PausedEventData> TYPE
       = new org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.WipEventType<org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.PausedEventData>("Debugger.paused", org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.PausedEventData.class) {
@@ -55,7 +55,6 @@ public interface PausedEventData {
     CSPVIOLATION,
     DEBUGCOMMAND,
     PROMISEREJECTION,
-    ASYNCOPERATION,
     OTHER,
   }
   /**

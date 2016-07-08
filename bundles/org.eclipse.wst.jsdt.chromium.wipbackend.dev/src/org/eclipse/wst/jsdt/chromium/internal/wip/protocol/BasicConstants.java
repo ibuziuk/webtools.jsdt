@@ -22,5 +22,6 @@ public interface BasicConstants {
     String DOM = "DOM";
     String NETWORK = "Network";
 	String SECURITY = "Security";
+	String EMULATION = "Emulation";
   }
 }

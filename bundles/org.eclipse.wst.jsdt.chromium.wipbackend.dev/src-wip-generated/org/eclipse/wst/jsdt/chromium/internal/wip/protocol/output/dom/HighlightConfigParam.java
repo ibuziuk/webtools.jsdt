@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom;
 
@@ -19,8 +19,9 @@ public class HighlightConfigParam extends org.json.simple.JSONObject {
    @param eventTargetColorOpt The event target element highlight fill color (default: transparent).
    @param shapeColorOpt The shape outside fill color (default: transparent).
    @param shapeMarginColorOpt The shape margin fill color (default: transparent).
+   @param selectorListOpt Selectors to highlight relevant nodes.
    */
-  public HighlightConfigParam(Boolean showInfoOpt, Boolean showRulersOpt, Boolean showExtensionLinesOpt, Boolean displayAsMaterialOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam contentColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam paddingColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam borderColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam marginColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam eventTargetColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam shapeColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam shapeMarginColorOpt) {
+  public HighlightConfigParam(Boolean showInfoOpt, Boolean showRulersOpt, Boolean showExtensionLinesOpt, Boolean displayAsMaterialOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam contentColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam paddingColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam borderColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam marginColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam eventTargetColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam shapeColorOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.dom.RGBAParam shapeMarginColorOpt, String selectorListOpt) {
     if (showInfoOpt != null) {
       this.put("showInfo", showInfoOpt);
     }
@@ -53,6 +54,9 @@ public class HighlightConfigParam extends org.json.simple.JSONObject {
     }
     if (shapeMarginColorOpt != null) {
       this.put("shapeMarginColor", shapeMarginColorOpt);
+    }
+    if (selectorListOpt != null) {
+      this.put("selectorList", selectorListOpt);
     }
   }
 

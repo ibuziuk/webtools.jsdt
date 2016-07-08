@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.page;
 
@@ -13,8 +13,9 @@ public class StartScreencastParams extends org.eclipse.wst.jsdt.chromium.interna
    @param qualityOpt Compression quality from range [0..100].
    @param maxWidthOpt Maximum screenshot width.
    @param maxHeightOpt Maximum screenshot height.
+   @param everyNthFrameOpt Send every n-th frame.
    */
-  public StartScreencastParams(Format formatOpt, Long qualityOpt, Long maxWidthOpt, Long maxHeightOpt) {
+  public StartScreencastParams(Format formatOpt, Long qualityOpt, Long maxWidthOpt, Long maxHeightOpt, Long everyNthFrameOpt) {
     if (formatOpt != null) {
       this.put("format", formatOpt);
     }
@@ -26,6 +27,9 @@ public class StartScreencastParams extends org.eclipse.wst.jsdt.chromium.interna
     }
     if (maxHeightOpt != null) {
       this.put("maxHeight", maxHeightOpt);
+    }
+    if (everyNthFrameOpt != null) {
+      this.put("everyNthFrame", everyNthFrameOpt);
     }
   }
 

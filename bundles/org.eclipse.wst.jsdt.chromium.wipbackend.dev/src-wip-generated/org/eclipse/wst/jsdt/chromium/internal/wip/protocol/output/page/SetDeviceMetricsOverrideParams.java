@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.page;
 
@@ -21,8 +21,9 @@ public class SetDeviceMetricsOverrideParams extends org.eclipse.wst.jsdt.chromiu
    @param screenHeightOpt Overriding screen height value in pixels (minimum 0, maximum 10000000). Only used for |mobile==true|.
    @param positionXOpt Overriding view X position on screen in pixels (minimum 0, maximum 10000000). Only used for |mobile==true|.
    @param positionYOpt Overriding view Y position on screen in pixels (minimum 0, maximum 10000000). Only used for |mobile==true|.
+   @param screenOrientationOpt Screen orientation override.
    */
-  public SetDeviceMetricsOverrideParams(long width, long height, Number deviceScaleFactor, boolean mobile, boolean fitWindow, Number scaleOpt, Number offsetXOpt, Number offsetYOpt, Long screenWidthOpt, Long screenHeightOpt, Long positionXOpt, Long positionYOpt) {
+  public SetDeviceMetricsOverrideParams(long width, long height, Number deviceScaleFactor, boolean mobile, boolean fitWindow, Number scaleOpt, Number offsetXOpt, Number offsetYOpt, Long screenWidthOpt, Long screenHeightOpt, Long positionXOpt, Long positionYOpt, org.eclipse.wst.jsdt.chromium.internal.wip.protocol.output.emulation.ScreenOrientationParam screenOrientationOpt) {
     this.put("width", width);
     this.put("height", height);
     this.put("deviceScaleFactor", deviceScaleFactor);
@@ -48,6 +49,9 @@ public class SetDeviceMetricsOverrideParams extends org.eclipse.wst.jsdt.chromiu
     }
     if (positionYOpt != null) {
       this.put("positionY", positionYOpt);
+    }
+    if (screenOrientationOpt != null) {
+      this.put("screenOrientation", screenOrientationOpt);
     }
   }
 

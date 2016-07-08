@@ -1,6 +1,6 @@
 // Generated source.
 // Generator: org.eclipse.wst.jsdt.chromium.internal.wip.tools.protocolgenerator.Generator
-// Origin: http://src.chromium.org/blink/trunk/Source/devtools/protocol.json@<unknown>
+// Origin: https://chromium.googlesource.com/chromium/src/+/51.0.2704.79/third_party/WebKit/Source/devtools/protocol.json?format=TEXT@<unknown>
 
 package org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger;
 
@@ -12,7 +12,7 @@ public interface ScriptFailedToParseEventData {
   /**
    Identifier of the script parsed.
    */
-  String/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.debugger.ScriptIdTypedef*/ scriptId();
+  String/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.runtime.ScriptIdTypedef*/ scriptId();
 
   /**
    URL or name of the script parsed (if any).
@@ -40,6 +40,16 @@ public interface ScriptFailedToParseEventData {
   long endColumn();
 
   /**
+   Specifies script creation context.
+   */
+  long/*See org.eclipse.wst.jsdt.chromium.internal.wip.protocol.common.runtime.ExecutionContextIdTypedef*/ executionContextId();
+
+  /**
+   Content hash of the script.
+   */
+  String hash();
+
+  /**
    Determines whether this script is a user extension script.
    */
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
@@ -62,6 +72,12 @@ public interface ScriptFailedToParseEventData {
    */
   @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
   Boolean hasSourceURL();
+
+  /**
+   True, if '//@ sourceURL' or '//@ sourceMappingURL' was used.
+   */
+  @org.eclipse.wst.jsdt.chromium.internal.protocolparser.JsonOptionalField
+  Boolean deprecatedCommentWasUsed();
 
   public static final org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.WipEventType<org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.ScriptFailedToParseEventData> TYPE
       = new org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.WipEventType<org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.ScriptFailedToParseEventData>("Debugger.scriptFailedToParse", org.eclipse.wst.jsdt.chromium.internal.wip.protocol.input.debugger.ScriptFailedToParseEventData.class) {
