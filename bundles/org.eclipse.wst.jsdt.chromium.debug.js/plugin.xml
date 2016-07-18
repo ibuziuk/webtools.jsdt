@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <extension
+        point="org.eclipse.wst.jsdt.core.JSRuntimeType">
+     <runtimeType
+           id="org.eclipse.wst.jsdt.chromium.debug.js.runtimeType"
+           class="org.eclipse.wst.jsdt.chromium.debug.js.runtime.ChromiumRuntimeType">
+     </runtimeType>
+  </extension>
+  <extension
+        point="org.eclipse.wst.jsdt.core.JSRuntimeInstallProvider">
+     <runtimeProvider
+           class="org.eclipse.wst.jsdt.chromium.debug.js.runtime.ChromiumRuntimeProvider"
+           runtimeTypeId="org.eclipse.wst.jsdt.chromium.debug.js.runtimeType">
+     </runtimeProvider>
+  </extension>   
+</plugin>
