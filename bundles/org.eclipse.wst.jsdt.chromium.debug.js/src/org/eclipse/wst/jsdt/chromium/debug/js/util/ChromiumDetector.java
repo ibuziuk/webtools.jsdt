@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.wst.jsdt.chromium.debug.core.util.PlatformUtil;
 
 /**
  * @author "Ilya Buziuk (ibuziuk)"
@@ -59,7 +59,7 @@ public final class ChromiumDetector {
 		}
 
 		if (output.equals(EMPTY)) {
-			String chromeFileName = isWindows() ? CHROME_WINDOWS : CHROMIUM_BROWSER;
+			String chromeFileName = PlatformUtil.isWindows() ? CHROME_WINDOWS : CHROMIUM_BROWSER;
 
 			String path = System.getenv(SYSTEM_PATH_ENV_VAR);
 			String[] paths = path.split(File.pathSeparator, 0);
@@ -68,7 +68,7 @@ public final class ChromiumDetector {
 				directories.add(p);
 			}
 
-			if (!isWindows()) {
+			if (!PlatformUtil.isWindows()) {
 				directories.add(CHROMIUM_EXTRA_LOCATION);
 			}
 			
@@ -83,7 +83,7 @@ public final class ChromiumDetector {
 				}
 			}
 
-			if (chromiumFile == null && isWindows()) {
+			if (chromiumFile == null && PlatformUtil.isWindows()) {
 				// We will try to determine the location of Chrome from the Windows registry, checking both
 				// HKEY_CURRENT_USER (for user-only Chrome installation) and HKEY_LOCAL_MACHINE (for all-users
 				// Chrome installation).
@@ -111,7 +111,7 @@ public final class ChromiumDetector {
 		List<String> cmdLine = new ArrayList<String>();
 
 		// Is windows?
-		if (isWindows()) { // $NON-NLS-1$
+		if (PlatformUtil.isWindows()) { // $NON-NLS-1$
 			// Handle command in a different way
 			cmdLine.add("cmd"); //$NON-NLS-1$
 			cmdLine.add("/c"); //$NON-NLS-1$
@@ -125,7 +125,7 @@ public final class ChromiumDetector {
 
 		String output = executeCmd(cmdLine);
 
-		if (!isWindows()) {
+		if (!PlatformUtil.isWindows()) {
 			if (output.equals(EMPTY)) {
 				cmdLine.remove(0);
 				cmdLine.add(0, WHICH_LOCATION_2);
@@ -162,10 +162,6 @@ public final class ChromiumDetector {
 			// which in our context is harmless
 		}
 		return output;
-	}
-	
-	private static boolean isWindows() {
-		return Platform.getOS().startsWith("win"); //$NON-NLS-1$
 	}
 
 }

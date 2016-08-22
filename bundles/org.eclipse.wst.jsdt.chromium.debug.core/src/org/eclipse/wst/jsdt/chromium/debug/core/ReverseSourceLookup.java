@@ -7,6 +7,7 @@
 package org.eclipse.wst.jsdt.chromium.debug.core;
 
 import org.eclipse.wst.jsdt.chromium.debug.core.model.VmResourceId;
+import org.eclipse.wst.jsdt.chromium.debug.core.util.PlatformUtil;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -123,13 +124,21 @@ public class ReverseSourceLookup {
           if (subResult == null) {
             return null;
           }
-          return prefix + subResult;
+          return prefix + replaseSlashesOnWindows(subResult);
         }
       };
     }
 
     return null;
   }
+  
+  private static String replaseSlashesOnWindows(String subResult) {
+	  if (PlatformUtil.isWindows()) {
+		  return subResult.replace("/", "\\");
+	  }
+	  return subResult;
+  }
+  
 
   /**
    * Wraps a container. This interface guarantees that original container with all inner containers
