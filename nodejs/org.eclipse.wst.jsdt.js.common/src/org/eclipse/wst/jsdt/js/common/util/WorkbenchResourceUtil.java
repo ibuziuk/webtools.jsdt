@@ -297,12 +297,15 @@ public final class WorkbenchResourceUtil {
 								return selection;
 							}
 						}
+						
+						TreePath[] paths = treeSelection.getPaths();
+						TreePath path = (paths.length > 0) ? paths[0] : null;
 
-						TreePath path = treeSelection.getPaths()[0];
-
-						Object first = path.getFirstSegment();
-						if (first instanceof IAdaptable) {
-							container = ((IAdaptable) first).getAdapter(IContainer.class);
+						if (path != null) {
+							Object first = path.getFirstSegment();
+							if (first instanceof IAdaptable) {
+								container = ((IAdaptable) first).getAdapter(IContainer.class);
+							}
 						}
 					} else if (selection != null) {
 						Object firstElement = selection.getFirstElement();
