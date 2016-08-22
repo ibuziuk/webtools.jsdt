@@ -64,7 +64,7 @@ public class ChromiumSourceComputer implements ISourcePathComputerDelegate {
 						containerMapping = remoteDir;
 					// WIP debugging via http:// and file:// protocols
 					} else if (baseURL != null) {
-						containerMapping = baseURL;
+						containerMapping = baseURL.replaceFirst("file:", "file://"); //$NON-NLS-1$ //$NON-NLS-2$
 					// Local Node.js Debugging
 					} else {
 						containerMapping = container.getLocation().toOSString();
@@ -105,11 +105,21 @@ public class ChromiumSourceComputer implements ISourcePathComputerDelegate {
 			sourceContainer = new ProjectSourceContainer((IProject) container, true);
 		} else if (container instanceof IFolder) {
 			sourceContainer = new FolderSourceContainer((IFolder) container, true);
-		}
-
-		containerMapping = (containerMapping.endsWith(SEPARATOR)) ? containerMapping : containerMapping + SEPARATOR;
-
-		// Using absolute path as a mapping prefix for project
-		return new SourceNameMapperContainer(containerMapping, sourceContainer);
+		}   
+		
+		return new SourceNameMapperContainer(normalize(containerMapping), sourceContainer);
 	}
+
+	private String normalize(final String containerMapping) {
+		String normalizedMapping = null;
+		if (containerMapping.endsWith("/") || containerMapping.endsWith("\\")) { //$NON-NLS-1$//$NON-NLS-2$
+			normalizedMapping = containerMapping;
+		} else if (containerMapping.startsWith("file") || containerMapping.startsWith("http")) { //$NON-NLS-1$ //$NON-NLS-2$
+			normalizedMapping = containerMapping + "/"; //$NON-NLS-1$
+		} else {
+			return containerMapping + SEPARATOR;
+		}
+		return normalizedMapping;
+	}
+	
 }
